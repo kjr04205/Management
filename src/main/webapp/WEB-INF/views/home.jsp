@@ -10,5 +10,7 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<p> login ID : ${User.id}</p>
+
 </body>
 </html>
