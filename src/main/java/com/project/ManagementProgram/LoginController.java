@@ -3,11 +3,13 @@ package com.project.ManagementProgram;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.DTO.User;
 
@@ -18,14 +20,39 @@ public class LoginController {
 		return "login";
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
 	@PostMapping("/login")
-	public String login(String id, String pwd, Model m) {
+	public String login(String id, String pwd, String toURL
+			, HttpServletRequest request, HttpServletResponse response) {
 		User user = new User();
 		user.setId(id);
 		user.setPwd(pwd);
 		System.out.println(user.toString());
-		m.addAttribute("User",user);
 		
-		return "home";
+		if(!loginCheck(user)) {
+			String msg = "";
+			try {
+				msg = URLEncoder.encode("ID 혹은 PW가 잘못 되었습니다", "utf-8");
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+			return "redirect:/login?msg="+msg;
+		}
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("id", id);
+		
+		toURL = toURL == null || toURL.equals("") ? "/" : toURL;
+		System.out.println("toURL:"+toURL);
+		return "redirect:"+toURL;
+	}
+	
+	private boolean loginCheck(User user) {
+		return "asdf".equals(user.getId()) && "1234".equals(user.getPwd());
 	}
 }

@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.net.URLDecoder" %>
+<c:set var="loginMenu" value="${sessionScope.id==null ? '로그인' : '로그아웃' }"/>
+<c:set var="loginLink" value="${sessionScope.id==null ? '/login' : '/logout' }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,6 +14,7 @@
   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="resources/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
@@ -67,7 +70,7 @@
     <div class="collapse navbar-collapse header_text_wrap" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="<c:url value="/login"/>">로그인</a>
+          <a class="nav-link" href="<c:url value="${loginLink}"/>">${loginMenu}</a>
         </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="#">회원가입</a>
