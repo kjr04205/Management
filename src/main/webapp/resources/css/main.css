@@ -1,0 +1,19 @@
+/* main 페이지 content 부분 */
+.box{
+	display:inline-block; 
+	width:48.2%;
+}
+.box:nth-child(1){
+	margin-right:3%;
+}
+.box .item{
+	text-align:center;
+}
+.box .item p:nth-of-type(1){
+	font-size:20px;
+	font-weight:bold;
+	margin-top:3%;
+}
+.box img{
+	width:100%;
+}

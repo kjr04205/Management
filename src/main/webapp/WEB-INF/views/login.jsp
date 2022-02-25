@@ -1,21 +1,11 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.net.URLDecoder" %>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-</head>
+<%@include file ="header.jsp" %>
 <style>
-  @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
   .login-page {
     width: 360px;
-    padding: 8% 0 0;
     margin: auto;
   }
   .form {
@@ -69,9 +59,6 @@
     display: none;
   }
  
-  body {
-    font-family: "Roboto", sans-serif;
-  }
 </style>
 <body>
   <div class="login-page">

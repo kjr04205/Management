@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.DTO.User;
 
 @Controller
-@RequestMapping("/login")
 public class LoginController {
 	@GetMapping("/login")
 	public String login() {
