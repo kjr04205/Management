@@ -73,7 +73,7 @@
           <a class="nav-link" href="<c:url value="${loginLink}"/>">${loginMenu}</a>
         </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="#">회원가입</a>
+	      <a class="nav-link" href="<c:url value="/register"/>">회원가입</a>
 	    </li>
         <li class="nav-item">
           <a class="nav-link" href="#">문의접수</a>
@@ -81,4 +81,3 @@
       </ul>
     </div>  
   </nav>
-<br>

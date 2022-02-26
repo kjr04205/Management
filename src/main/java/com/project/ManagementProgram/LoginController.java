@@ -37,7 +37,7 @@ public class LoginController {
 		if(!loginCheck(user)) {
 			String msg = "";
 			try {
-				msg = URLEncoder.encode("ID í˜¹ì€ PWê°€ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤", "utf-8");
+				msg = URLEncoder.encode("ID¸¦ Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.", "utf-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
