@@ -1,0 +1,38 @@
+/* 직원관리 */
+.sub_header{
+	float:left;
+	height:100vh;
+}
+.sub_header > div{
+	width:200px;
+	background:#E6E6FA;
+	height:100%;
+}
+.sub_header ul li{
+	display:block;
+	padding:20px 60px;
+}
+
+.container_title{
+	font-size:25px;
+	font-weight:bold;	
+}
+
+.employee_table{
+	border-collapse: collapse;
+	line-height:1.5;
+}
+.employee_table thead th{
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #4CAF50;
+	border-bottom: 3px solid #4CAF50;
+}
+.employee_table tbody td{
+	width: 350px;
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #E6E6FA;
+}
+
