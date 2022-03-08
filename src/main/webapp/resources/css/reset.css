@@ -1,0 +1,202 @@
+@charset "UTF-8";
+
+/* kopub 100, 400, 700 */
+@font-face{
+	font-family:"kopub";
+	font-style:normal;
+    font-weight:100;
+	src:local(kopub),
+		url('../fonts/KoPubLight.woff2') format('woff2'),
+		url('../fonts/KoPubLight.woff') format('woff'),
+		url('../fonts/KoPubLight.ttf') format('truetype');
+}
+
+@font-face{
+	font-family:"kopub";
+	font-style:normal;
+    font-weight:400;
+	src:local(kopub),
+		url('../fonts/KoPubMedium.woff2') format('woff2'),
+		url('../fonts/KoPubMedium.woff') format('woff'),
+		url('../fonts/KoPubMedium.ttf') format('truetype');
+}
+
+@font-face{
+	font-family:"kopub";
+	font-style:normal;
+    font-weight:700;
+	src:local(kopub),
+		url('../fonts/KoPubBold.woff2') format('woff2'),
+		url('../fonts/KoPubBold.woff') format('woff'),
+		url('../fonts/KoPubBold.ttf') format('truetype');
+}
+
+
+*{
+    font-family:'kopub', sans-serif; 
+    color:#000; 
+    margin:0; 
+    padding:0; 
+    border:0; 
+    box-sizing:border-box;
+    line-height:1;
+}   
+
+
+/* 초기화 */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 16px;
+	vertical-align: middle;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section{
+	display: block;
+}
+
+body {
+    line-height: 1;
+    position:relative;
+    margin:0;
+    padding:0;
+    min-width: 1700px;
+}
+ol, ul {
+    list-style: none;
+    font-size:0;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+em{
+    font-style:normal;
+}
+table {
+    width:100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a {
+    color:#000;
+    display:block;
+    text-decoration: none;
+    cursor:pointer;
+}
+a:hover, a:active {
+    text-decoration: none
+    ;}
+
+select {
+    border-radius: 0;
+    -webkit-border-radius:0;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+select option{
+    font-size: inherit; color: inherit;
+}
+
+/* 네이티브 화살표 숨기기 */
+select::-ms-expand {
+    display: none;
+}
+
+select:focus::-ms-value{background-color:#fff; color:#000;}
+
+/* Base */
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+
+/* Reset `button` and button-style `input` default styles */
+input[type="submit"],
+input[type="reset"],
+input[type="button"]{
+    background: none;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    overflow: visible;
+    padding: 0;
+    -webkit-appearance: button; /* for input */
+    -webkit-user-select: none; /* for button */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor:pointer;
+}
+
+button {
+    border: 0;
+    overflow: visible;
+    -webkit-appearance: button; /* for input */
+    -webkit-user-select: none; /* for button */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor:pointer;
+}
+
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+input:-webkit-autofill,
+input:-internal-autofill-selected{
+	-webkit-box-shadow:0 0 0 30px #ffffff inset;
+	-webkit-text-fill-color:#000000;
+}
+
+input::placeholder{color:#8d7272; font-size:15px;}
+input:-ms-input-placeholder{color:#8d7272; font-size:15px;}
+input::-webkit-input-placeholder{color:#8d7272; font-size:15px;}
+input:-moz-input-placeholder{color:#8d7272; font-size:15px;}
+input::-moz-input-placeholder{color:#8d7272; font-size:15px;}
+
+
+/* 기본 css */
+.sr-only {
+    position:absolute; 
+    left:-10000px; 
+    top:auto; 
+    width:1px; 
+    height:1px; 
+    overflow:hidden;
+}
+
+
+@media screen and (max-width: 1025px){
+    body{min-width:initial; max-width: 1025px;}
+}
+
+
+@media screen and (max-width: 640px){
+ body{min-width:initial; max-width:640px;}   
+}
