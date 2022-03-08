@@ -2,19 +2,28 @@ package com.project.ManagementProgram;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.project.DAO.UserDAO;
 import com.project.DTO.User;
 
 @Controller
 public class LoginController {
+	@Autowired
+	UserDAO userDao;
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
@@ -37,7 +46,7 @@ public class LoginController {
 		if(!loginCheck(user)) {
 			String msg = "";
 			try {
-				msg = URLEncoder.encode("ID¸¦ Àß¸øÀÔ·ÂÇÏ¼Ì½À´Ï´Ù.", "utf-8");
+				msg = URLEncoder.encode("ID í˜¹ì€ PWê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.", "utf-8");
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -53,6 +62,15 @@ public class LoginController {
 	}
 	
 	private boolean loginCheck(User user) {
-		return "asdf".equals(user.getId()) && "1234".equals(user.getPwd());
+		
+		User tmp = userDao.selectUser(user.getId());
+		System.out.println(tmp);
+		if(tmp!=null && tmp.getPwd().equals(user.getPwd())) return true;
+		
+		return false;
+		
 	}
+	
 }
+
+
