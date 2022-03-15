@@ -2,27 +2,23 @@ package com.project.ManagementProgram;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.project.DAO.UserDAO;
 import com.project.DTO.User;
+import com.project.Service.UserService;
 
 @Controller
 public class LoginController {
 	@Autowired
-	UserDAO userDao;
+	UserService userService;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -63,9 +59,17 @@ public class LoginController {
 	
 	private boolean loginCheck(User user) {
 		
-		User tmp = userDao.selectUser(user.getId());
-		System.out.println(tmp);
-		if(tmp!=null && tmp.getPwd().equals(user.getPwd())) return true;
+		User tmp;
+		try {
+			
+			tmp = userService.getUser(user);
+			System.out.println(tmp);
+			if(tmp!=null && tmp.getPwd().equals(user.getPwd())) return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 		
 		return false;
 		

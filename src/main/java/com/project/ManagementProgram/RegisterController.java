@@ -2,15 +2,21 @@ package com.project.ManagementProgram;
 
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.DTO.User;
+import com.project.Service.UserService;
 
 @Controller
 public class RegisterController {
+	
+	@Autowired
+	UserService userService;
+	
 	@GetMapping("/register")
 	public String register() {
 		return "register";
@@ -18,17 +24,44 @@ public class RegisterController {
 	
 	@PostMapping("/register/save")
 	public String save(User user, Model m) throws Exception {
-		// À¯È¿¼º °Ë»ç
-		if(!isValid(user)) {
-			String msg = URLEncoder.encode("È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØÁÖ¼¼¿ä.","utf-8");
-			return "redirect:/register?msg="+msg;
+		// ìœ íš¨ì„± ê²€ì‚¬
+		String res = isValid(user);
+		if(res.equals("success")) {
+			try {
+				// DBì— insert
+				int re = userService.insertUser(user);
+				if(re > 0)
+					return "registerInfo";
+					
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
-		// DB¿¡ insert
-		return "registerInfo";
+		String msg = "";
+		if(res.equals("exist")) {
+			msg = URLEncoder.encode("ì´ë¯¸ ì•„ì´ë””ê°€ ì¡´ì¬í•©ë‹ˆë‹¤.","utf-8");	
+		}
+		else{
+			msg = URLEncoder.encode("íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì‹œë„í•´ì£¼ì„¸ìš”.","utf-8");	
+		}
+		
+		return "redirect:/register?msg="+msg;
+		
+		
 	}
 
-	private boolean isValid(User user) {
-		return true;
+	private String isValid(User user) {
+		try {
+			User tmp = userService.getUser(user);
+			if(tmp!=null) {
+				return "exist";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "fail";
+		}
+		return "success";
 	}
 }
