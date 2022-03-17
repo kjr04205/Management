@@ -12,27 +12,21 @@
 				<tr>
 					<th>No.</th>
 					<th>이름</th>
+					<th>전화번호</th>
 					<th>직책</th>
-					<th>주소</th>
 					<th>부서</th>
 				</tr>
 			</thead>
 			<tbody>
+			<c:forEach var="employee" items="${list}">
 				<tr>
-					<td>1</td>
-					<td>안효인</td>
-					<td>주임</td>
-					<td>경기도 부천시</td>
-					<td>개발부</td>
+					<td>${employee.eno}</td>
+					<td>${employee.name }</td>
+					<td>${employee.number }</td>
+					<td>${employee.position }</td>
+					<td>${employee.team }</td>
 				</tr>
-				
-				<tr>
-					<td>2</td>
-					<td>효인안</td>
-					<td>과장</td>
-					<td>서울 동작구</td>
-					<td>영업부</td>
-				</tr>
+			</c:forEach>
 			</tbody>
 		</table>
 	</div>

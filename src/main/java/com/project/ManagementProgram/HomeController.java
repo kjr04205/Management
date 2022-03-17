@@ -37,9 +37,6 @@ public class HomeController {
 		return "index";
 	}
 	
-	@RequestMapping("/employee")
-	public String employee() {
-		return "employee";
-	}
+	
 	
 }

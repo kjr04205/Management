@@ -5,5 +5,6 @@
 <configuration>
     <typeAliases>
         <typeAlias alias="User" type="com.project.DTO.User"/>
+        <typeAlias alias="Employee" type="com.project.DTO.Employee"/>
     </typeAliases>
 </configuration>
