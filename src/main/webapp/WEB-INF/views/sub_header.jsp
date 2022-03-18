@@ -26,6 +26,7 @@
   }
   .header{
   	background-color:#4CAF50 !important;
+  	padding:15px 20px;
   }
   .logo{
   	font-size:25px;
@@ -36,7 +37,7 @@
   	width:100%;
   }
   .container > div{
-  	margin:16px 50px 50px 0px;
+  	margin:50px 50px 50px 0px;
   }
 </style>
 <body>
@@ -46,7 +47,7 @@
    	  <span class="navbar-toggler-icon"></span>
 	</button>
     <div class="collapse navbar-collapse header_text_wrap" id="collapsibleNavbar">
-      <ul class="navbar-nav">
+      <!--  <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="<c:url value="${loginLink}"/>">${loginMenu}</a>
         </li>
@@ -56,16 +57,17 @@
         <li class="nav-item">
           <a class="nav-link" href="#">문의접수</a>
         </li>    
-      </ul>
+      </ul> -->
     </div>  
   </nav>
   
   <div class="sub_header">
 	<div>
 		<ul>
-			<li><a href="#">직원 관리</a></li>
-			<li><a href="#">부서 관리</a></li>
-			<li><a href="#">휴가 관리</a></li>
+			<li><a href="<c:url value="/employee"/>" class="employee_item01">직원 관리</a></li>
+			<li><a href="<c:url value="/employeeRegister"/>" class="employee_item02">직원 등록</a></li>
+			<li><a href="#" class="employee_item03">부서 관리</a></li>
+			<li><a href="#" class="employee_item04">휴가 관리</a></li>
 		</ul>
 	</div>	
 </div>

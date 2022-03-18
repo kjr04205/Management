@@ -1,4 +1,9 @@
 /* 직원관리 */
+.on{
+	color:#4CAF50;
+	font-weight:bold;
+}
+
 .sub_header{
 	float:left;
 	height:100vh;
@@ -34,5 +39,18 @@
 	padding: 10px;
 	vertical-align: top;
 	border-bottom: 1px solid #E6E6FA;
+}
+
+/* 페이징 */
+.paging{
+	text-align:center;
+	margin:40px 0;
+}
+.paging > a{
+	margin: 0 5px;
+}
+
+.paging img{
+	width:18px;
 }
 

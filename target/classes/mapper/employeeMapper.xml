@@ -14,4 +14,19 @@
 		ORDER BY eno DESC;
 	</select>
 	
+	<select id="selectEmployeePage" parameterType="map" resultType="Employee">
+		SELECT eno,
+		name,
+		number,
+		position,
+		team
+		FROM employee
+		ORDER BY eno DESC
+		LIMIT #{offset}, #{pageSize}
+		;
+	</select>
+	
+	<select id="count" resultType="int">
+        SELECT count(*) FROM employee;
+    </select>
 </mapper>

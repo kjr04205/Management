@@ -97,7 +97,7 @@ table {
 }
 a {
     color:#000;
-    display:block;
+    display:inline-block;
     text-decoration: none;
     cursor:pointer;
 }
