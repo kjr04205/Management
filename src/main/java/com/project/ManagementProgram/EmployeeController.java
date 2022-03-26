@@ -52,4 +52,9 @@ public class EmployeeController {
 	public String employeeRegister() throws Exception{
 		return "employeeRegister";
 	}
+	
+	@RequestMapping("/employeeRegister/save")
+	public String save() {
+		return "employee";
+	}
 }

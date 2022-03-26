@@ -63,7 +63,7 @@
 <body>
   
   <div class="register-page form">
-      <form action="<c:url value='/register/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
+      <form action="<c:url value='/employeeRegister/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
       	<label for="id">이름</label>
 	    <input class="input-field" type="text" name="id" >
 	    <label for="id">전화번호</label>
