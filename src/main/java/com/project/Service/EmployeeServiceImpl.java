@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.project.DAO.EmployeeDAO;
 import com.project.DTO.Employee;
+import com.project.DTO.Position;
+import com.project.DTO.Team;
 import com.project.DTO.User;
 
 @Service
@@ -33,6 +35,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int getCount() throws Exception{
 		return employeeDao.count();
+	}
+
+	@Override
+	public List<Team> getTeamList() throws Exception {
+		return employeeDao.selectTeamAll();
+	}
+
+	@Override
+	public List<Position> getPositionList() throws Exception {
+		return employeeDao.selectPositionAll();
 	}
 	
 }

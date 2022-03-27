@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.DTO.Employee;
+import com.project.DTO.Position;
+import com.project.DTO.Team;
 import com.project.DTO.User;
 
 @Repository
@@ -31,5 +33,13 @@ public class EmployeeDAO {
 	
 	public int insertEmployee(Employee employee) throws Exception{
 		return session.insert(namespace + "insertEmployee", employee);
+	}
+	
+	public List<Team> selectTeamAll() throws Exception{
+		return session.selectList(namespace + "selectTeamAll");
+	}
+	
+	public List<Position> selectPositionAll() throws Exception{
+		return session.selectList(namespace + "selectPositionAll");
 	}
 }

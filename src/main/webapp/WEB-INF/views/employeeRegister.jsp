@@ -82,23 +82,17 @@
 	    <label for="id">직책</label>
 	    <%-- <input class="input-field" type="text" name="position" >--%>
 	    <select name="position">
-	    	<option value="사원">사원</option>
-	    	<option value="주임">주임</option>
-	    	<option value="대리">대리</option>
-	    	<option value="과장">과장</option>
-	    	<option value="팀장">팀장</option>
-	    	<option value="부장">부장</option>
-	    	<option value="이사">이사</option>
-	    	<option value="대표이사">대표이사</option>
+	    	<c:forEach var="item" items="${position}">
+	    		<option value=${item.pno}>${item.name}</option>
+	    	</c:forEach>
 	    </select>
 	    <label for="id">부서</label>
 	    <%-- <input class="input-field" type="text" name="team" > --%>
 	    <select name="team">
-	    	<option value="개발부">개발부</option>
-	    	<option value="영업부">영업부</option>
-	    	<option value="마케팅부">마케팅부</option>
-	    	<option value="생산부">생산부</option>
-	    	<option value="기술지원부">기술지원부</option>
+	    	<c:forEach var="item" items="${team}">
+	    		<option value=${item.tno}>${item.name}</option>
+	    	</c:forEach>
+	    	
 	    </select>
         <button>직원등록</button>
       </form>

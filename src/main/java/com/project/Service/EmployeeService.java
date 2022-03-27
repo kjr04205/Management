@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.project.DTO.Employee;
+import com.project.DTO.Position;
+import com.project.DTO.Team;
 
 public interface EmployeeService {
 
@@ -14,5 +16,9 @@ public interface EmployeeService {
 	int insertEmployee(Employee employee) throws Exception;
 	
 	int getCount() throws Exception;
+	
+	List<Team> getTeamList() throws Exception;
+	
+	List<Position> getPositionList() throws Exception;
 
 }

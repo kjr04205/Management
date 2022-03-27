@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.DTO.Employee;
 import com.project.DTO.PageHandler;
+import com.project.DTO.Position;
+import com.project.DTO.Team;
 import com.project.DTO.User;
 import com.project.Service.EmployeeService;
 
@@ -52,7 +54,11 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("/employeeRegister")
-	public String employeeRegister() throws Exception{
+	public String employeeRegister(Model m) throws Exception{
+		List<Team> tList = employeeservice.getTeamList();
+		List<Position> pList = employeeservice.getPositionList();
+		m.addAttribute("team", tList);
+		m.addAttribute("position", pList);
 		return "employeeRegister";
 	}
 	
