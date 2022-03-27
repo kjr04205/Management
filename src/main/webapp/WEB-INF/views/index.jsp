@@ -12,8 +12,8 @@
     	<div class="box">
     		<div class="item">
     			<a href="#"><img src="resources/img/main_02.png"></a>
-    			<p>근태 관리</p>
-    			<p>직원들의 근무일, 휴가, 포상 등 정보를 관리할 수 있습니다.</p>
+    			<p>자재 관리</p>
+    			<p>사내 자재, 반입출 자재들을 관리할 수 있습니다.</p>
     		</div>
     	</div>
 	</div>

@@ -35,6 +35,17 @@
 	box-sizing: border-box;
 	font-size: 14px;
 }
+.form select{
+	font-family: "Roboto", sans-serif;
+	outline: 0;
+	width: 100%;
+	border: 0;
+	margin: 0 0 15px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-size: 14px;
+	background: #f2f2f2;
+}
 
 .form button {
 	font-family: "Roboto", sans-serif;
@@ -69,9 +80,26 @@
 	    <label for="id">전화번호</label>
 	    <input class="input-field" type="text" name="number" placeholder="010********">
 	    <label for="id">직책</label>
-	    <input class="input-field" type="text" name="position" >
+	    <%-- <input class="input-field" type="text" name="position" >--%>
+	    <select name="position">
+	    	<option value="사원">사원</option>
+	    	<option value="주임">주임</option>
+	    	<option value="대리">대리</option>
+	    	<option value="과장">과장</option>
+	    	<option value="팀장">팀장</option>
+	    	<option value="부장">부장</option>
+	    	<option value="이사">이사</option>
+	    	<option value="대표이사">대표이사</option>
+	    </select>
 	    <label for="id">부서</label>
-	    <input class="input-field" type="text" name="team" >
+	    <%-- <input class="input-field" type="text" name="team" > --%>
+	    <select name="team">
+	    	<option value="개발부">개발부</option>
+	    	<option value="영업부">영업부</option>
+	    	<option value="마케팅부">마케팅부</option>
+	    	<option value="생산부">생산부</option>
+	    	<option value="기술지원부">기술지원부</option>
+	    </select>
         <button>직원등록</button>
       </form>
       
