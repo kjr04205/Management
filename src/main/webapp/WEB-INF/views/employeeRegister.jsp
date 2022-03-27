@@ -65,13 +65,13 @@
   <div class="register-page form">
       <form action="<c:url value='/employeeRegister/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
       	<label for="id">이름</label>
-	    <input class="input-field" type="text" name="id" >
-	    <label for="id">전화번호</label>
-	    <input class="input-field" type="text" name="pwd" placeholder="010********">
-	    <label for="id">직책</label>
 	    <input class="input-field" type="text" name="name" >
+	    <label for="id">전화번호</label>
+	    <input class="input-field" type="text" name="number" placeholder="010********">
+	    <label for="id">직책</label>
+	    <input class="input-field" type="text" name="position" >
 	    <label for="id">부서</label>
-	    <input class="input-field" type="text" name="email" >
+	    <input class="input-field" type="text" name="team" >
         <button>직원등록</button>
       </form>
       

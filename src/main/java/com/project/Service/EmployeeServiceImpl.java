@@ -8,11 +8,17 @@ import org.springframework.stereotype.Service;
 
 import com.project.DAO.EmployeeDAO;
 import com.project.DTO.Employee;
+import com.project.DTO.User;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeDAO employeeDao;
+	
+	@Override
+	public int insertEmployee(Employee employee) throws Exception{
+		return employeeDao.insertEmployee(employee);
+	}
 	
 	@Override
 	public List<Employee> getList() throws Exception{

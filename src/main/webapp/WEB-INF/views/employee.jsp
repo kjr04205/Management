@@ -3,7 +3,7 @@
 
 <script>
 	$('.sub_header li a').removeClass("on");
-	$('.employee_item01').addClass("on");
+	$('.employee_item01 ').addClass("on");
 </script>
 <div class="container">
 	<div>

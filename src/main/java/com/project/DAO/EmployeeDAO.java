@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.DTO.Employee;
+import com.project.DTO.User;
 
 @Repository
 public class EmployeeDAO {
@@ -27,4 +28,8 @@ public class EmployeeDAO {
 	public int count() throws Exception {
         return session.selectOne(namespace+"count");
     } 
+	
+	public int insertEmployee(Employee employee) throws Exception{
+		return session.insert(namespace + "insertEmployee", employee);
+	}
 }

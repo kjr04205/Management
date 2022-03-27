@@ -11,6 +11,8 @@ public interface EmployeeService {
 
 	List<Employee> getPage(Map map) throws Exception;
 
+	int insertEmployee(Employee employee) throws Exception;
+	
 	int getCount() throws Exception;
 
 }

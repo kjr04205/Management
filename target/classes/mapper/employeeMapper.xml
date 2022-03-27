@@ -29,4 +29,9 @@
 	<select id="count" resultType="int">
         SELECT count(*) FROM employee;
     </select>
+    
+    <insert id="insertEmployee" parameterType="Employee">
+		insert into employee (name, number, position, team)
+		values (#{name}, #{number}, #{position}, #{team});
+	</insert>
 </mapper>
