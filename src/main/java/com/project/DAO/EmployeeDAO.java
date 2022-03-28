@@ -42,4 +42,12 @@ public class EmployeeDAO {
 	public List<Position> selectPositionAll() throws Exception{
 		return session.selectList(namespace + "selectPositionAll");
 	}
+	
+	public int teamCount() throws Exception{
+		return session.selectOne(namespace + "teamCount");
+	}
+	
+	public List<Team> selectTeam(Map map) throws Exception{
+		return session.selectList(namespace + "selectTeam", map);
+	}
 }

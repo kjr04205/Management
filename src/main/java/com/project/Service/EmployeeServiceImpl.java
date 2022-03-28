@@ -46,5 +46,15 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public List<Position> getPositionList() throws Exception {
 		return employeeDao.selectPositionAll();
 	}
+
+	@Override
+	public int getTeamCount() throws Exception {
+		return employeeDao.teamCount();
+	}
+
+	@Override
+	public List<Team> getTeamList(Map map) throws Exception {
+		return employeeDao.selectTeam(map);
+	}
 	
 }

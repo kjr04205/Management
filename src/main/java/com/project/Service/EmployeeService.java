@@ -20,5 +20,9 @@ public interface EmployeeService {
 	List<Team> getTeamList() throws Exception;
 	
 	List<Position> getPositionList() throws Exception;
+	
+	int getTeamCount() throws Exception;
+	
+	List<Team> getTeamList(Map map) throws Exception;
 
 }
