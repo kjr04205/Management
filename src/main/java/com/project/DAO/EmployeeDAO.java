@@ -35,6 +35,10 @@ public class EmployeeDAO {
 		return session.insert(namespace + "insertEmployee", employee);
 	}
 	
+	public int removeEmployee(Integer EmployeeEno) throws Exception{
+		return session.insert(namespace + "removeEmployee", EmployeeEno);
+	}
+	
 	public List<Team> selectTeamAll() throws Exception{
 		return session.selectList(namespace + "selectTeamAll");
 	}

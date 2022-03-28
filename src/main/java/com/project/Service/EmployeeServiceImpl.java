@@ -57,4 +57,10 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return employeeDao.selectTeam(map);
 	}
 	
+	@Override
+	public int removeEmployee(Integer EmployeeEno) throws Exception{
+		return employeeDao.removeEmployee(EmployeeEno);
+	}
+	
+	
 }

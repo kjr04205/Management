@@ -10,16 +10,18 @@
 		overflow: hidden;
 	}
 	.btn-1{
-		width:auto;
-		background: #2ecc71;
-		border: 1px solid;
-		border-radius: 5px;
-		color: white;
-		padding:5px;
-		margin:5px;
-		
-		text-align: center;
-		font-size: 1rem;
+		font-family: "Roboto", sans-serif;
+		text-transform: uppercase;
+		outline: 0;
+		background: #4CAF50;
+		width: 10%;
+		border: 0;
+		padding: 10px;
+		color: #FFFFFF;
+		font-size: 14px;
+		-webkit-transition: all 0.3 ease;
+		transition: all 0.3 ease;
+		cursor: pointer;
 	}
 	#team_top > h2{
 		float:left;

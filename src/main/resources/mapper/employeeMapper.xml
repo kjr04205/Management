@@ -36,6 +36,10 @@
 		values (#{name}, #{number}, #{position}, #{team});
 	</insert>
 	
+	<delete id="removeEmployee" parameterType="Employee">
+		delete from employee where eno = #{EmployeeEno};
+	</delete>
+	
 	<select id="selectTeamAll" resultType="Team">
 		select * from Team order by name;
 	</select>

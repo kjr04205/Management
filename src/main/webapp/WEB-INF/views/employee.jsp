@@ -4,6 +4,9 @@
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item01 ').addClass("on");
+	
+	let msg = "${msg}";
+	if(msg=="REMOVE_OK") alert("삭제되었습니다.");
 </script>
 <div class="container">
 	<div>
@@ -19,6 +22,7 @@
 					<th>전화번호</th>
 					<th>직책</th>
 					<th>부서</th>
+					<th>&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +33,7 @@
 					<td>${employee.number }</td>
 					<td>${employee.position }</td>
 					<td>${employee.team }</td>
+					<td><a href="<c:url value='/employee/remove?eno=${employee.eno}'/>">X</a></td>
 				</tr>
 			</c:forEach>
 			</tbody>
