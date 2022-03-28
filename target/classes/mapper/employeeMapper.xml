@@ -3,24 +3,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.project.DAO.EmployeeMapper">
-
 	<select id="selectEmployee" parameterType="int" resultType="Employee">
-		SELECT eno,
-		name,
-		number,
-		position,
-		team
-		FROM employee
+		SELECT e.eno,
+		e.name,
+		e.number,
+		t.name as team,
+		p.name as position
+		FROM employee e LEFT JOIN position p ON e.position = p.pno
+		LEFT JOIN team t ON e.team = t.tno
 		ORDER BY eno DESC;
 	</select>
 	
 	<select id="selectEmployeePage" parameterType="map" resultType="Employee">
-		SELECT eno,
-		name,
-		number,
-		position,
-		team
-		FROM employee
+		SELECT e.eno,
+		e.name,
+		e.number,
+		t.name as team,
+		p.name as position
+		FROM employee e LEFT JOIN position p ON e.position = p.pno
+		LEFT JOIN team t ON e.team = t.tno
 		ORDER BY eno DESC
 		LIMIT #{offset}, #{pageSize}
 		;
@@ -34,4 +35,13 @@
 		insert into employee (name, number, position, team)
 		values (#{name}, #{number}, #{position}, #{team});
 	</insert>
+	
+	<select id="selectTeamAll" resultType="Team">
+		select * from Team order by name;
+	</select>
+	
+	<select id="selectPositionAll" resultType="Position">
+		select * from Position order by seq desc;
+	</select>
+	
 </mapper>

@@ -70,6 +70,10 @@
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item02').addClass("on");
+	
+	let msg = "${msg}";
+	if(msg=="ADD_OK") alert("등록되었습니다.");
+	if(msg=="ADD_ERR") alert("등록에 실패하였습니다. 관리자에게 문의해주세요.");
 </script>
 <body>
   

@@ -73,6 +73,7 @@
 	margin-bottom: 15px;
 }
 </style>
+
 <body>
   <div class="register-page form">
       <form action="<c:url value='/register/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">

@@ -89,7 +89,7 @@
         <input type="password" name="pwd" placeholder="PW를 입력해주세요."/>
         <input type="hidden" name="toURL" value="${param.toURL }"/>
         <button>login</button>
-        <p class="message">회원이 아니신가요? <a href="#">회원가입하러 가기</a></p>
+        <p class="message">회원이 아니신가요? <a href="<c:url value='/register'/>">회원가입하러 가기</a></p>
       </form>
     </div>
   </div>

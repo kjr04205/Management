@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.DTO.Employee;
 import com.project.DTO.PageHandler;
@@ -63,10 +64,16 @@ public class EmployeeController {
 	}
 	
 	@PostMapping("/employeeRegister/save")
-	public String save(Employee employee, Model m) throws Exception {
+	public String save(Employee employee, Model m, RedirectAttributes rattr){
 		// DB에 insert
-		employeeservice.insertEmployee(employee);
-		
-		return "employeeRegister";
+		try {
+			employeeservice.insertEmployee(employee);
+			rattr.addFlashAttribute("msg", "ADD_OK");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "ADD_ERR");
+		}
+		return "redirect:/employeeRegister";
 	}
 }

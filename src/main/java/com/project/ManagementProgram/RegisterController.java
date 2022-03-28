@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.DTO.User;
 import com.project.Service.UserService;
@@ -23,17 +24,21 @@ public class RegisterController {
 	}
 	
 	@PostMapping("/register/save")
-	public String save(User user, Model m) throws Exception {
+	public String save(User user, Model m, RedirectAttributes rattr) throws Exception {
 		// 유효성 검사
 		String res = isValid(user);
 		if(res.equals("success")) {
 			try {
 				// DB에 insert
 				int re = userService.insertUser(user);
-				if(re > 0)
-					return "registerInfo";
+				if(re > 0) {
+					rattr.addFlashAttribute("msg", "ADD_OK");
+					return "redirect:/";
+				}
+					
 					
 			} catch(Exception e) {
+				rattr.addFlashAttribute("msg", "ADD_ERR");
 				e.printStackTrace();
 			}
 		}
@@ -47,7 +52,6 @@ public class RegisterController {
 		}
 		
 		return "redirect:/register?msg="+msg;
-		
 		
 	}
 

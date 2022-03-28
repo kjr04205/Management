@@ -3,6 +3,7 @@
 <%@ page import="java.net.URLDecoder" %>
 <c:set var="loginMenu" value="${sessionScope.id==null ? '로그인' : '로그아웃' }"/>
 <c:set var="loginLink" value="${sessionScope.id==null ? '/login' : '/logout' }"/>
+<c:set var="registerMenu" value="${sessionScope.id==null ? '회원가입' : ' ' }"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +74,7 @@
           <a class="nav-link" href="<c:url value="${loginLink}"/>">${loginMenu}</a>
         </li>
 	    <li class="nav-item">
-	      <a class="nav-link" href="<c:url value="/register"/>">회원가입</a>
+	      <a class="nav-link" href="<c:url value="/register"/>">${registerMenu}</a>
 	    </li>
         <li class="nav-item">
           <a class="nav-link" href="#">문의접수</a>
