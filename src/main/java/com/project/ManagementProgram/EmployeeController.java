@@ -114,4 +114,18 @@ public class EmployeeController {
 		
 		return "teamManagement";
 	}
+	
+	@PostMapping("/teamManagement/save")
+	public String teamManagementSave(Team team, Model m, RedirectAttributes rattr){
+		try {
+			System.out.println("team = " + team);
+			employeeservice.teamInsert(team);
+			rattr.addFlashAttribute("msg", "ADD_OK");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "ADD_ERR");
+		}
+		return "redirect:/teamManagement";
+	}
 }

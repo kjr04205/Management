@@ -18,7 +18,7 @@
     	
     	<div class="box">
     		<div class="item">
-    			<a href="#"><img src="resources/img/main_02.png"></a>
+    			<a href="<c:url value="/inventory"/>"><img src="resources/img/main_02.png"></a>
     			<p>자재 관리</p>
     			<p>사내 자재, 반입출 자재들을 관리할 수 있습니다.</p>
     		</div>

@@ -51,6 +51,10 @@ public class EmployeeDAO {
 		return session.selectOne(namespace + "teamCount");
 	}
 	
+	public int teamInsert(Team team) throws Exception{
+		return session.insert(namespace + "teamInsert", team);
+	}
+	
 	public List<Team> selectTeam(Map map) throws Exception{
 		return session.selectList(namespace + "selectTeam", map);
 	}

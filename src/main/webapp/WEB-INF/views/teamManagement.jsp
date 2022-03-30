@@ -4,6 +4,16 @@
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item03 ').addClass("on");
+	
+	$(document).ready(function(){
+		$('#teamInsert').click(function(){
+			$('.team_register').css("display","block");
+		});	
+		$('.form_close').click(function(){
+			$('.team_register').css("display","none");
+		});
+	});
+	
 </script>
 <style>
 	#team_top{
@@ -52,13 +62,39 @@
 	.no{
 		width : 20%;
 	}
-
 	
+	.team_register{
+		position: absolute;
+		left:40%;
+		display:none;
+	}
+	.form_close{
+		position:absolute;
+		top:10px;
+		right:10px;
+		font-size:20px;
+		font-weight:bold;
+		cursor:pointer;
+	}
+	.register-form > h2{
+		font-size:17px;
+		font-weight:bold;
+	}
 </style>
 <div class="container">
 	<div id="team_top">
 		<h2 class="container_title">부서 관리</h2>
 		<button type="button" class="btn-1" id="teamInsert">부서 등록</button>
+	</div>
+	
+	<div class="team_register register-page form">
+		<form action="<c:url value='/teamManagement/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
+			<h2>등록할 부서의 이름을 입력하세요.</h2><br><br>
+			<span class="form_close">X</span>
+	      	<label for="id">부서 이름</label>
+		    <input class="input-field" type="text" name="name" >
+	        <button>부서 등록</button>
+      	</form>
 	</div>
 	
 	<div>

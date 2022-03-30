@@ -52,6 +52,11 @@
 		select count(*) from team;
 	</select>
 	
+	<insert id="teamInsert" parameterType="Team">
+		insert into team (name)
+		values (#{name});
+	</insert>
+	
 	<select id="selectTeam" parameterType="map" resultType="Team">
 		select tno, name
 		from team

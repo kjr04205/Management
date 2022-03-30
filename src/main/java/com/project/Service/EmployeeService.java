@@ -15,6 +15,8 @@ public interface EmployeeService {
 
 	int insertEmployee(Employee employee) throws Exception;
 	
+	int teamInsert(Team team) throws Exception;
+	
 	int removeEmployee(Integer EmployeeEno) throws Exception;
 	
 	int getCount() throws Exception;

@@ -43,6 +43,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
+	public int teamInsert(Team team) throws Exception{
+		return employeeDao.teamInsert(team);
+	}
+	
+	@Override
 	public List<Position> getPositionList() throws Exception {
 		return employeeDao.selectPositionAll();
 	}
