@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.project.DTO.Employee;
 import com.project.DTO.Position;
+import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 
 public interface EmployeeService {
@@ -28,5 +29,9 @@ public interface EmployeeService {
 	int getTeamCount() throws Exception;
 	
 	List<Team> getTeamList(Map map) throws Exception;
+	
+	List<Employee> getTeamMember(SearchCondition sc) throws Exception;
+	
+	int getTeamMemberCount(SearchCondition sc) throws Exception;
 
 }

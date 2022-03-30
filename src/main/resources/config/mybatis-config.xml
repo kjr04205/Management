@@ -8,5 +8,6 @@
         <typeAlias alias="Employee" type="com.project.DTO.Employee"/>
         <typeAlias alias="Team" type="com.project.DTO.Team"/>
         <typeAlias alias="Position" type="com.project.DTO.Position"/>
+        <typeAlias alias="SearchCondition" type="com.project.DTO.SearchCondition"/>
     </typeAliases>
 </configuration>

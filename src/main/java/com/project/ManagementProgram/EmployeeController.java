@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.DTO.Employee;
 import com.project.DTO.PageHandler;
+import com.project.DTO.PageHandler2;
 import com.project.DTO.Position;
+import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 import com.project.DTO.User;
 import com.project.Service.EmployeeService;
@@ -90,19 +92,14 @@ public class EmployeeController {
 	}
 	
 	@GetMapping("/teamManagement")
-	public String teamManagement(Integer page, Integer pageSize, Model m) {
-		if(page == null) {
-			page = 1;
-		}
-		if(pageSize == null) {
-			pageSize = 10;
-		}
+	public String teamManagement(SearchCondition sc, Model m) {
+		
 		try {
 			int totalCnt = employeeservice.getTeamCount();
-			PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
 			Map map = new HashMap();
-			map.put("offset", (page-1) * pageSize);
-			map.put("pageSize", pageSize);
+			map.put("offset", (sc.getPage()-1) * sc.getPageSize());
+			map.put("pageSize", sc.getPageSize());
 			
 			List<Team> teamList = employeeservice.getTeamList(map);
 			m.addAttribute("teamList", teamList);
@@ -127,5 +124,26 @@ public class EmployeeController {
 			rattr.addFlashAttribute("msg", "ADD_ERR");
 		}
 		return "redirect:/teamManagement";
+	}
+	
+	@GetMapping("/teamManagement/member")
+	public String teamMember(SearchCondition sc, Team team, Model m) {
+		sc.setKeyword(Integer.toString(team.getTno()));
+		
+		try {
+			int totalCnt = employeeservice.getTeamMemberCount(sc);
+			
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			
+			List<Employee> employeeList = employeeservice.getTeamMember(sc);
+			m.addAttribute("employeeList", employeeList);
+			m.addAttribute("ph", pageHandler);
+			m.addAttribute("team", team);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "teamMember";
 	}
 }

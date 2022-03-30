@@ -64,4 +64,34 @@
 		limit #{offset} , #{pageSize}
 	</select>
 	
+	<sql id="teamMemberSearchCondition">
+		<choose>
+			<when test='option=="SEQ"'>
+				AND e.position = #{keyword2}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+	
+	<select id="selectTeamMember" parameterType="SearchCondition" resultType="Employee">
+		SELECT e.eno,
+		e.name,
+		e.number,
+		p.name as position
+		FROM employee e JOIN team t ON e.team = t.tno 
+		LEFT JOIN position p ON e.position = p.pno
+		WHERE t.tno = #{keyword}
+		<include refid="teamMemberSearchCondition"/>
+		ORDER BY eno DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="selectTeamMemberCnt" parameterType="SearchCondition" resultType="int">
+		SELECT count(*) 
+		FROM employee e JOIN team t ON e.team = t.tno 
+		LEFT JOIN position p ON e.position = p.pno
+		WHERE t.tno = #{keyword}
+		<include refid="teamMemberSearchCondition"/>
+	</select>
+	
 </mapper>

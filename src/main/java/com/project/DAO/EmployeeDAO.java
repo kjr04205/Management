@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.DTO.Employee;
 import com.project.DTO.Position;
+import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 import com.project.DTO.User;
 
@@ -57,5 +58,13 @@ public class EmployeeDAO {
 	
 	public List<Team> selectTeam(Map map) throws Exception{
 		return session.selectList(namespace + "selectTeam", map);
+	}
+	
+	public int selectTeamMemberCnt(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "selectTeamMemberCnt", sc);
+	}
+	
+	public List<Employee> selectTeamMember(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectTeamMember", sc);
 	}
 }

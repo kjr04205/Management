@@ -109,20 +109,20 @@
 			<c:forEach var="team" items="${teamList}">
 				<tr>
 					<td class="no">${team.tno}</td>
-					<td><a href="#">${team.name }</a></td>
+					<td><a href="<c:url value='/teamManagement/member?tno=${team.tno}&name=${team.name}'/>">${team.name }</a></td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 		<div class="paging">
 			<c:if test="${ph.showPrev}">
-				<a href="<c:url value='/teamManagement?page=${ph.beginPage-1}&pageSize=${ph.pageSize }'/>"><img src="resources/img/prev.png" /></a>
+				<a href="<c:url value='/teamManagement${ph.sc.getQueryString(ph.beginPage-1)}'/>"><img src="resources/img/prev.png" /></a>
 			</c:if>
 			<c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-				<a href="<c:url value='/teamManagement?page=${i}&pageSize=${ph.pageSize }'/>">${i}</a>
+				<a href="<c:url value='/teamManagement${ph.sc.getQueryString(i)}'/>">${i}</a>
 			</c:forEach>
 			<c:if test="${ph.showNext}">
-				<a href="<c:url value='/teamManagement?page=${ph.endPage+1}&pageSize=${ph.pageSize }'/>"><img src="resources/img/next.png" /></a>
+				<a href="<c:url value='/teamManagement${ph.sc.getQueryString(ph.endPage+1)}'/>"><img src="resources/img/next.png" /></a>
 			</c:if>
 		</div>
 	</div>

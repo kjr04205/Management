@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.DAO.EmployeeDAO;
 import com.project.DTO.Employee;
 import com.project.DTO.Position;
+import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 import com.project.DTO.User;
 
@@ -65,6 +66,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public int removeEmployee(Integer EmployeeEno) throws Exception{
 		return employeeDao.removeEmployee(EmployeeEno);
+	}
+
+	@Override
+	public List<Employee> getTeamMember(SearchCondition sc) throws Exception {
+		return employeeDao.selectTeamMember(sc);
+	}
+
+	@Override
+	public int getTeamMemberCount(SearchCondition sc) throws Exception {
+		return employeeDao.selectTeamMemberCnt(sc);
 	}
 	
 	
