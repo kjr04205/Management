@@ -48,16 +48,16 @@ public class EmployeeDAO {
 		return session.selectList(namespace + "selectPositionAll");
 	}
 	
-	public int teamCount() throws Exception{
-		return session.selectOne(namespace + "teamCount");
+	public int teamCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "teamCount", sc);
 	}
 	
 	public int teamInsert(Team team) throws Exception{
 		return session.insert(namespace + "teamInsert", team);
 	}
 	
-	public List<Team> selectTeam(Map map) throws Exception{
-		return session.selectList(namespace + "selectTeam", map);
+	public List<Team> selectTeam(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectTeam", sc);
 	}
 	
 	public int selectTeamMemberCnt(SearchCondition sc) throws Exception{

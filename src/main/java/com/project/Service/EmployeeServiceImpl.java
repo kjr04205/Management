@@ -54,13 +54,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 
 	@Override
-	public int getTeamCount() throws Exception {
-		return employeeDao.teamCount();
+	public int getTeamCount(SearchCondition sc) throws Exception {
+		return employeeDao.teamCount(sc);
 	}
 
 	@Override
-	public List<Team> getTeamList(Map map) throws Exception {
-		return employeeDao.selectTeam(map);
+	public List<Team> getTeamList(SearchCondition sc) throws Exception {
+		return employeeDao.selectTeam(sc);
 	}
 	
 	@Override

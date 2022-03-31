@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@include file ="sub_header.jsp" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/searchBar.css">
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item03 ').addClass("on");
@@ -79,5 +79,19 @@
 				<a href="<c:url value='/teamManagement/member?${ph.sc.getQueryString(ph.endPage+1)}&tno=${team.tno}&name=${team.name}'/>"><img src="resources/img/next.png" /></a>
 			</c:if>
 		</div>
+		<div class="search-container">
+            <form action="<c:url value="/teamManagement/member"/>" class="search-form" method="get">
+                <select class="search-option" name="option">
+                	<option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>전체검색</option>
+                    <option value="N" ${ph.sc.option=='N' ? "selected" : ""}>이름</option>
+                    <option value="P" ${ph.sc.option=='P' ? "selected" : ""}>전화번호</option>
+                    <option value="R" ${ph.sc.option=='R' ? "selected" : ""}>직책</option>
+                </select>
+                <input type="text" name="keyword2" class="search-input" type="text" value="${ph.sc.keyword2}" placeholder="검색어를 입력해주세요">
+                <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">
+                <input type="hidden" name="tno" value="${team.tno}"/>
+                <input type="hidden" name="name" value="${team.name}"/>
+            </form>
+        </div>
 	</div>
 </div>

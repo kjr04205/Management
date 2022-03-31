@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@include file ="sub_header.jsp" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/searchBar.css">
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item03 ').addClass("on");
@@ -80,6 +80,7 @@
 		font-size:17px;
 		font-weight:bold;
 	}
+	
 </style>
 <div class="container">
 	<div id="team_top">
@@ -125,5 +126,14 @@
 				<a href="<c:url value='/teamManagement${ph.sc.getQueryString(ph.endPage+1)}'/>"><img src="resources/img/next.png" /></a>
 			</c:if>
 		</div>
+		<div class="search-container">
+            <form action="<c:url value="/teamManagement"/>" class="search-form" method="get">
+                <select class="search-option" name="option">
+                    <option value="T" ${ph.sc.option=='T' || ph.sc.option=='' ? "selected" : ""}>부서명</option>
+                </select>
+                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">
+            </form>
+        </div>
 	</div>
 </div>

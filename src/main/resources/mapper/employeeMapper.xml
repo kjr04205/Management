@@ -48,8 +48,12 @@
 		select * from Position order by seq desc;
 	</select>
 	
-	<select id="teamCount" resultType = "int">
-		select count(*) from team;
+	<select id="teamCount" parameterType="SearchCondition" resultType = "int">
+		select count(*) from team
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>;
 	</select>
 	
 	<insert id="teamInsert" parameterType="Team">
@@ -57,17 +61,32 @@
 		values (#{name});
 	</insert>
 	
-	<select id="selectTeam" parameterType="map" resultType="Team">
+	<select id="selectTeam" parameterType="SearchCondition" resultType="Team">
 		select tno, name
 		from team
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>
 		order by tno desc
 		limit #{offset} , #{pageSize}
 	</select>
 	
 	<sql id="teamMemberSearchCondition">
 		<choose>
-			<when test='option=="SEQ"'>
-				AND e.position = #{keyword2}
+			<when test='option=="A"'>
+				AND (e.name like concat('%',#{keyword2},'%') 
+				OR e.number like concat('%',#{keyword2},'%') 
+				OR  p.name like concat('%',#{keyword2},'%') )
+			</when>
+			<when test='option=="N"'>
+				AND e.name like concat('%',#{keyword2},'%')
+			</when>
+			<when test='option=="P"'>
+				AND e.number like concat('%',#{keyword2},'%') 
+			</when>
+			<when test='option=="R"'>
+				AND p.name like concat('%',#{keyword2},'%') 
 			</when>
 			<otherwise></otherwise>
 		</choose>

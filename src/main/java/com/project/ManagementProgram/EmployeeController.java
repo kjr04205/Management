@@ -95,13 +95,9 @@ public class EmployeeController {
 	public String teamManagement(SearchCondition sc, Model m) {
 		
 		try {
-			int totalCnt = employeeservice.getTeamCount();
+			int totalCnt = employeeservice.getTeamCount(sc);
 			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
-			Map map = new HashMap();
-			map.put("offset", (sc.getPage()-1) * sc.getPageSize());
-			map.put("pageSize", sc.getPageSize());
-			
-			List<Team> teamList = employeeservice.getTeamList(map);
+			List<Team> teamList = employeeservice.getTeamList(sc);
 			m.addAttribute("teamList", teamList);
 			m.addAttribute("ph", pageHandler);
 			
@@ -129,7 +125,6 @@ public class EmployeeController {
 	@GetMapping("/teamManagement/member")
 	public String teamMember(SearchCondition sc, Team team, Model m) {
 		sc.setKeyword(Integer.toString(team.getTno()));
-		
 		try {
 			int totalCnt = employeeservice.getTeamMemberCount(sc);
 			
