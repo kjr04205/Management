@@ -31,24 +31,13 @@ public class EmployeeController {
 	EmployeeService employeeservice; 
 	
 	@RequestMapping("/employee")
-	public String employee(Model m, Integer page, Integer pageSize) throws Exception {
-		
-		if(page==null) {
-			page = 1;
-		}
-		if(pageSize == null) {
-			pageSize = 10;
-		}
+	public String employee(Model m, SearchCondition sc) throws Exception {
 		
 		try {
-			int totalCnt = employeeservice.getCount();
-			PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+			int totalCnt = employeeservice.getCount(sc);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
 			
-			Map map = new HashMap();
-			map.put("offset", (page-1)*pageSize);
-			map.put("pageSize", pageSize);
-			
-			List<Employee> list = employeeservice.getPage(map);
+			List<Employee> list = employeeservice.getPage(sc);
 			m.addAttribute("list", list);
 			m.addAttribute("ph", pageHandler);
 			

@@ -12,7 +12,7 @@ public interface EmployeeService {
 
 	List<Employee> getList() throws Exception;
 
-	List<Employee> getPage(Map map) throws Exception;
+	List<Employee> getPage(SearchCondition sc) throws Exception;
 
 	int insertEmployee(Employee employee) throws Exception;
 	
@@ -20,7 +20,7 @@ public interface EmployeeService {
 	
 	int removeEmployee(Integer EmployeeEno) throws Exception;
 	
-	int getCount() throws Exception;
+	int getCount(SearchCondition sc) throws Exception;
 	
 	List<Team> getTeamList() throws Exception;
 	

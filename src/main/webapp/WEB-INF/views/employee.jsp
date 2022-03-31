@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@include file ="sub_header.jsp" %>
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/searchBar.css">
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item01 ').addClass("on");
@@ -40,14 +40,27 @@
 		</table>
 		<div class="paging">
 			<c:if test="${ph.showPrev}">
-				<a href="<c:url value='/employee?page=${ph.beginPage-1}&pageSize=${ph.pageSize }'/>"><img src="resources/img/prev.png" /></a>
+				<a href="<c:url value='/employee${ph.sc.getQueryString(ph.beginPage-1)}'/>"><img src="resources/img/prev.png" /></a>
 			</c:if>
 			<c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-				<a href="<c:url value='/employee?page=${i}&pageSize=${ph.pageSize }'/>">${i}</a>
+				<a href="<c:url value='/employee${ph.sc.getQueryString(i)}'/>">${i}</a>
 			</c:forEach>
 			<c:if test="${ph.showNext}">
-				<a href="<c:url value='/employee?page=${ph.endPage+1}&pageSize=${ph.pageSize }'/>"><img src="resources/img/next.png" /></a>
+				<a href="<c:url value='/employee${ph.sc.getQueryString(ph.endPage+1)}'/>"><img src="resources/img/next.png" /></a>
 			</c:if>
 		</div>
+		<div class="search-container">
+            <form action="<c:url value="/employee"/>" class="search-form" method="get">
+                <select class="search-option" name="option">
+                	<option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>전체검색</option>
+                    <option value="N" ${ph.sc.option=='N' ? "selected" : ""}>이름</option>
+                    <option value="P" ${ph.sc.option=='P' ? "selected" : ""}>전화번호</option>
+                    <option value="R" ${ph.sc.option=='R' ? "selected" : ""}>직책</option>
+                    <option value="T" ${ph.sc.option=='R' ? "selected" : ""}>부서</option>
+                </select>
+                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">
+            </form>
+        </div>
 	</div>
 </div>

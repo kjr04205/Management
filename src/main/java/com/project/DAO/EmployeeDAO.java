@@ -24,12 +24,12 @@ public class EmployeeDAO {
 		return session.selectList(namespace+"selectEmployee");
 	}
 	
-	public List<Employee> selectPage(Map map) throws Exception{
-		return session.selectList(namespace+"selectEmployeePage", map);
+	public List<Employee> selectPage(SearchCondition sc) throws Exception{
+		return session.selectList(namespace+"selectEmployeePage", sc);
 	}
 	
-	public int count() throws Exception {
-        return session.selectOne(namespace+"count");
+	public int count(SearchCondition sc) throws Exception {
+        return session.selectOne(namespace+"count", sc);
     } 
 	
 	public int insertEmployee(Employee employee) throws Exception{

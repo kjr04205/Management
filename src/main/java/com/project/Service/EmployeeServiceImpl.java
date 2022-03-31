@@ -29,13 +29,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	}
 	
 	@Override
-	public List<Employee> getPage(Map map) throws Exception{
-		return employeeDao.selectPage(map);
+	public List<Employee> getPage(SearchCondition sc) throws Exception{
+		return employeeDao.selectPage(sc);
 	}
 	
 	@Override
-	public int getCount() throws Exception{
-		return employeeDao.count();
+	public int getCount(SearchCondition sc) throws Exception{
+		return employeeDao.count(sc);
 	}
 
 	@Override

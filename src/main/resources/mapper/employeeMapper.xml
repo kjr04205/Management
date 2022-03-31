@@ -14,7 +14,7 @@
 		ORDER BY eno DESC;
 	</select>
 	
-	<select id="selectEmployeePage" parameterType="map" resultType="Employee">
+	<select id="selectEmployeePage" parameterType="SearchCondition" resultType="Employee">
 		SELECT e.eno,
 		e.name,
 		e.number,
@@ -22,14 +22,44 @@
 		p.name as position
 		FROM employee e LEFT JOIN position p ON e.position = p.pno
 		LEFT JOIN team t ON e.team = t.tno
+		WHERE TRUE
+        <include refid="employeeSearchCondition"></include>
 		ORDER BY eno DESC
 		LIMIT #{offset}, #{pageSize}
 		;
 	</select>
 	
-	<select id="count" resultType="int">
-        SELECT count(*) FROM employee;
+	<select id="count" parameterType = "SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM employee e LEFT JOIN position p ON e.position = p.pno
+		LEFT JOIN team t ON e.team = t.tno
+        WHERE TRUE
+        <include refid="employeeSearchCondition"></include>
+        ;
     </select>
+    
+    <sql id="employeeSearchCondition">
+    	<choose>
+			<when test='option=="A"'>
+				AND (e.name like concat('%',#{keyword},'%') 
+				OR e.number like concat('%',#{keyword},'%') 
+				OR  p.name like concat('%',#{keyword},'%') )
+			</when>
+			<when test='option=="N"'>
+				AND e.name like concat('%',#{keyword},'%')
+			</when>
+			<when test='option=="P"'>
+				AND e.number like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="R"'>
+				AND p.name like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="T"'>
+				AND t.name like concat('%',#{keyword},'%') 
+			</when>
+			<otherwise></otherwise>
+		</choose>
+    </sql>
     
     <insert id="insertEmployee" parameterType="Employee">
 		insert into employee (name, number, position, team)
