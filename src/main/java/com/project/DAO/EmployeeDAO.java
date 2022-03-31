@@ -31,6 +31,10 @@ public class EmployeeDAO {
 	public int count(SearchCondition sc) throws Exception {
         return session.selectOne(namespace+"count", sc);
     } 
+
+	public Employee selectEmployee(int eno) throws Exception{
+		return session.selectOne(namespace + "selectEmployeeOne", eno);
+	}
 	
 	public int insertEmployee(Employee employee) throws Exception{
 		return session.insert(namespace + "insertEmployee", employee);
@@ -38,6 +42,10 @@ public class EmployeeDAO {
 	
 	public int removeEmployee(Integer EmployeeEno) throws Exception{
 		return session.insert(namespace + "removeEmployee", EmployeeEno);
+	}
+	
+	public int updateEmployee(Employee employee) throws Exception{
+		return session.update(namespace + "updateEmployee", employee);
 	}
 	
 	public List<Team> selectTeamAll() throws Exception{
@@ -67,4 +75,5 @@ public class EmployeeDAO {
 	public List<Employee> selectTeamMember(SearchCondition sc) throws Exception{
 		return session.selectList(namespace + "selectTeamMember", sc);
 	}
+	
 }

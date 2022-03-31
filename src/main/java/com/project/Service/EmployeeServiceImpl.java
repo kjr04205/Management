@@ -77,6 +77,16 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int getTeamMemberCount(SearchCondition sc) throws Exception {
 		return employeeDao.selectTeamMemberCnt(sc);
 	}
+
+	@Override
+	public int updateEmployee(Employee employee) throws Exception {
+		return employeeDao.updateEmployee(employee);
+	}
+
+	@Override
+	public Employee selectEmployee(int eno) throws Exception {
+		return employeeDao.selectEmployee(eno);
+	}
 	
 	
 }

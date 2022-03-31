@@ -80,6 +80,40 @@ public class EmployeeController {
 		return "redirect:/employeeRegister";
 	}
 	
+	@GetMapping("/employee/update")
+	public String update(int eno, Model m, RedirectAttributes rattr) {
+		try {
+			Employee employee = employeeservice.selectEmployee(eno);
+			List<Team> tList = employeeservice.getTeamList();
+			List<Position> pList = employeeservice.getPositionList();
+			
+			m.addAttribute("employee", employee);
+			m.addAttribute("team", tList);
+			m.addAttribute("position", pList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg","UPDATE_LOAD_ERR");
+			return "redirect:/employee";
+		}
+		
+		return "employeeUpdate";
+	}
+	
+	@PostMapping("/employee/update")
+	public String update(Employee employee, Model m, RedirectAttributes rattr){
+		try {
+			employeeservice.updateEmployee(employee);
+			rattr.addFlashAttribute("msg", "UPDATE_OK");
+			return "redirect:/employee";
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "UPDATE_ERR");
+		}
+		return "redirect:/employee/update?eno="+employee.getEno();
+	}
+	
 	@GetMapping("/teamManagement")
 	public String teamManagement(SearchCondition sc, Model m) {
 		

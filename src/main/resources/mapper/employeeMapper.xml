@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.project.DAO.EmployeeMapper">
-	<select id="selectEmployee" parameterType="int" resultType="Employee">
+	<sql id="selectEmployeeBaseSql">
 		SELECT e.eno,
 		e.name,
 		e.number,
@@ -11,17 +11,15 @@
 		p.name as position
 		FROM employee e LEFT JOIN position p ON e.position = p.pno
 		LEFT JOIN team t ON e.team = t.tno
+		
+	</sql>
+	<select id="selectEmployee" parameterType="int" resultType="Employee">
+		<include refid="selectEmployeeBaseSql"></include>
 		ORDER BY eno DESC;
 	</select>
 	
 	<select id="selectEmployeePage" parameterType="SearchCondition" resultType="Employee">
-		SELECT e.eno,
-		e.name,
-		e.number,
-		t.name as team,
-		p.name as position
-		FROM employee e LEFT JOIN position p ON e.position = p.pno
-		LEFT JOIN team t ON e.team = t.tno
+		<include refid="selectEmployeeBaseSql"></include>
 		WHERE TRUE
         <include refid="employeeSearchCondition"></include>
 		ORDER BY eno DESC
@@ -61,6 +59,11 @@
 		</choose>
     </sql>
     
+    <select id="selectEmployeeOne" parameterType="int" resultType="Employee">
+    	<include refid="selectEmployeeBaseSql"></include>
+		WHERE e.eno = #{eno};
+    </select>
+    
     <insert id="insertEmployee" parameterType="Employee">
 		insert into employee (name, number, position, team)
 		values (#{name}, #{number}, #{position}, #{team});
@@ -69,6 +72,12 @@
 	<delete id="removeEmployee" parameterType="Employee">
 		delete from employee where eno = #{EmployeeEno};
 	</delete>
+	
+	<update id="updateEmployee" parameterType="Employee">
+		update employee
+		set name = #{name}, number = #{number}, position = #{position}, team = #{team}
+		where eno = #{eno}; 
+	</update>
 	
 	<select id="selectTeamAll" resultType="Team">
 		select * from Team order by name;

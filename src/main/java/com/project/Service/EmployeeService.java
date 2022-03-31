@@ -13,8 +13,12 @@ public interface EmployeeService {
 	List<Employee> getList() throws Exception;
 
 	List<Employee> getPage(SearchCondition sc) throws Exception;
+	
+	Employee selectEmployee(int eno) throws Exception;
 
 	int insertEmployee(Employee employee) throws Exception;
+	
+	int updateEmployee(Employee employee) throws Exception;
 	
 	int teamInsert(Team team) throws Exception;
 	

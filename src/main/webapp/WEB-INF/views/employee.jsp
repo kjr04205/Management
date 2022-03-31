@@ -7,6 +7,8 @@
 	
 	let msg = "${msg}";
 	if(msg=="REMOVE_OK") alert("삭제되었습니다.");
+	if(msg=="UPDATE_OK") alert("수정이 완료되었습니다.");
+	if(msg=="UPDATE_LOAD_ERR") alert("직원을 불러 올 수 없습니다.");
 </script>
 <div class="container">
 	<div>
@@ -29,7 +31,7 @@
 			<c:forEach var="employee" items="${list}">
 				<tr>
 					<td>${employee.eno}</td>
-					<td>${employee.name }</td>
+					<td><a href="<c:url value='/employee/update?eno=${employee.eno}'/>">${employee.name }</a></td>
 					<td>${employee.number }</td>
 					<td>${employee.position }</td>
 					<td>${employee.team }</td>
