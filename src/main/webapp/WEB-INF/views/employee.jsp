@@ -24,6 +24,7 @@
 					<th>전화번호</th>
 					<th>직책</th>
 					<th>부서</th>
+					<th>입사날짜</th>
 					<th>&nbsp;</th>
 				</tr>
 			</thead>
@@ -35,6 +36,7 @@
 					<td>${employee.number }</td>
 					<td>${employee.position }</td>
 					<td>${employee.team }</td>
+					<td>${employee.startdate }</td>
 					<td><a href="<c:url value='/employee/remove?eno=${employee.eno}'/>">X</a></td>
 				</tr>
 			</c:forEach>

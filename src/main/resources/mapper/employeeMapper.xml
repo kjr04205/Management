@@ -8,7 +8,8 @@
 		e.name,
 		e.number,
 		t.name as team,
-		p.name as position
+		p.name as position,
+		e.startdate
 		FROM employee e LEFT JOIN position p ON e.position = p.pno
 		LEFT JOIN team t ON e.team = t.tno
 		
@@ -65,8 +66,8 @@
     </select>
     
     <insert id="insertEmployee" parameterType="Employee">
-		insert into employee (name, number, position, team)
-		values (#{name}, #{number}, #{position}, #{team});
+		insert into employee (name, number, position, team, startdate)
+		values (#{name}, #{number}, #{position}, #{team}, #{startdate});
 	</insert>
 	
 	<delete id="removeEmployee" parameterType="Employee">

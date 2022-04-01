@@ -6,15 +6,23 @@ public class Employee {
 	private String number;
 	private String position;
 	private String team;
+	private int startdate;
 	
+	public int getStartdate() {
+		return startdate;
+	}
+	public void setStartdate(int startdate) {
+		this.startdate = startdate;
+	}
 	public Employee() {}
-	public Employee(int eno, String name, String number, String position, String team) {
+	public Employee(int eno, String name, String number, String position, String team, int startdate) {
 		super();
 		this.eno = eno;
 		this.name = name;
 		this.number = number;
 		this.position = position;
 		this.team = team;
+		this.startdate = startdate;
 	}
 	
 	@Override
