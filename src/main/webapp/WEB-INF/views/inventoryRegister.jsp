@@ -21,12 +21,24 @@
       	<label for="id">제품 이름</label>
 	    <input class="input-field" type="text" name="name" >
 	    <label for="id">제품 코드</label>
-	    <input class="input-field" type="text" name="number">
+	    <input class="input-field" type="text" name="code">
 	    <label for="id">자재 수량</label>
-	    <input class="input-field" type="text" name="count">
+	    <input class="input-field" type="number" name="count">
 	    <label for="id">자재 위치</label>
-	    <input class="input-field" type="text" name="location">
+	    <select name="location">
+	    	<c:forEach var="location" items="${location}">
+	    		<option value=${location.lno}>${location.name}</option>
+	    	</c:forEach>
+	    </select>
+	     <label for="id">분류</label>
+	    <select name="group">
+	    	<c:forEach var="group" items="${group}">
+	    		<option value=${group.igno}>${group.name}</option>
+	    	</c:forEach>
+	    </select>
+	    
         <button>자재 등록</button>
+        
       </form>
       
   </div>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.project.DAO.InventoryMapper">
+	
+	<select id="selectLocationAll" resultType="Location">
+		select * from location order by name;
+	</select>
+	
+	<select id="selectGroupAll" resultType="IGroup">
+		select * from inventory_group order by name;
+	</select>
+	
+</mapper>

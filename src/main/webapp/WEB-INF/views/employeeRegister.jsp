@@ -96,7 +96,6 @@
 	    	<c:forEach var="item" items="${team}">
 	    		<option value=${item.tno}>${item.name}</option>
 	    	</c:forEach>
-	    	
 	    </select>
 	    <label for="id">입사날짜</label>
 	    <input class="input-field" type="text" name="startdate" placeholder="2020-04-20">

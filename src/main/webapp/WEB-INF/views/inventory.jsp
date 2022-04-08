@@ -22,6 +22,7 @@
 					<th>제품 코드</th>
 					<th>재고 수량</th>
 					<th>재고 위치</th>
+					<th>분류</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -31,6 +32,7 @@
 					<td>COM20220330</td>
 					<td>10</td>
 					<td>4F B20</td>
+					<td>CPU</td>
 				</tr>
 			</tbody>
 		</table>

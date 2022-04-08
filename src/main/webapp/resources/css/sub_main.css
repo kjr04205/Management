@@ -15,7 +15,8 @@
 }
 .sub_header ul li{
 	display:block;
-	padding:20px 60px;
+	padding:20px 0;
+	text-align:center;
 }
 
 .container_title{

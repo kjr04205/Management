@@ -9,5 +9,7 @@
         <typeAlias alias="Team" type="com.project.DTO.Team"/>
         <typeAlias alias="Position" type="com.project.DTO.Position"/>
         <typeAlias alias="SearchCondition" type="com.project.DTO.SearchCondition"/>
+        <typeAlias alias="Location" type="com.project.DTO.Location"/>
+        <typeAlias alias="IGroup" type="com.project.DTO.IGroup"/>
     </typeAliases>
 </configuration>
