@@ -8,7 +8,7 @@
 </style>
 <script>
 	$('.sub_header li a').removeClass("on");
-	$('.inventory_item03 ').addClass("on");
+	$('.inventory_item04 ').addClass("on");
 	
 	let msg = "${msg}";
 	if(msg=="ADD_OK") alert("등록되었습니다.");
@@ -17,10 +17,10 @@
 <body>
   
   <div class="register-page form">
-      <form action="<c:url value='/inventoryLocation/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
-      	<label for="id">위치명</label>
+      <form action="<c:url value='/inventoryGroup/save'/>" method="post" class="register-form" onsubmit="return formCheck(this)">
+      	<label for="id">제품분류</label>
 	    <input class="input-field" type="text" name="name" maxlength="10">
-        <button>위치 등록</button>
+        <button>분류그룹 등록</button>
       </form>
       
   </div>

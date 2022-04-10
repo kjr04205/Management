@@ -12,4 +12,12 @@
 		select * from inventory_group order by name;
 	</select>
 	
+	<insert id="locationInsert" parameterType="Location">
+		insert into m00001.location(name) values(#{name});
+	</insert>
+	
+	<insert id="IGroupInsert" parameterType="IGroup">
+		insert into m00001.inventory_group(name) values(#{name});
+	</insert>
+	
 </mapper>

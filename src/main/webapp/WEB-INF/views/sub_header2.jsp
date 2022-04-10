@@ -67,6 +67,7 @@
 			<li><a href="<c:url value="/inventory"/>" class="inventory_item01">자재 목록</a></li>
 			<li><a href="<c:url value="/inventoryRegister"/>" class="inventory_item02">자재 등록</a></li>
 			<li><a href="<c:url value="/inventoryLocation"/>" class="inventory_item03">자재위치 등록</a></li>
+			<li><a href="<c:url value="/inventoryGroup"/>" class="inventory_item04">자재분류 등록</a></li>
 		</ul>
 	</div>	
 </div>

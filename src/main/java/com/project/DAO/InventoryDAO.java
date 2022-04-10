@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.DTO.IGroup;
 import com.project.DTO.Location;
+import com.project.DTO.Team;
 
 @Repository
 public class InventoryDAO {
@@ -23,4 +24,13 @@ public class InventoryDAO {
 	public List<IGroup> selectGroupAll() throws Exception{
 		return session.selectList(namespace + "selectGroupAll");
 	}
+	
+	public int locationInsert(Location location) throws Exception{
+		return session.insert(namespace + "locationInsert", location);
+	}
+
+	public int locationInsert(IGroup igroup) {
+		return session.insert(namespace + "IGroupInsert", igroup);
+	}
+	
 }

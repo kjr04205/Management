@@ -66,8 +66,8 @@
 		<ul>
 			<li><a href="<c:url value="/employee"/>" class="employee_item01">직원 관리</a></li>
 			<li><a href="<c:url value="/employeeRegister"/>" class="employee_item02">직원 등록</a></li>
-			<li><a href="<c:url value="/teamManagement"/>" class="employee_item03">부서 관리</a></li>
-			<li><a href="#" class="employee_item04">휴가 관리</a></li>
+			<li><a href="<c:url value="/teamManagement"/>" class="employee_item03">부서별 관리</a></li>
+			<li><a href="<c:url value="/position"/>" class="employee_item04">직급별 관리</a></li>
 		</ul>
 	</div>	
 </div>
