@@ -98,7 +98,7 @@
 	    	</c:forEach>
 	    </select>
 	    <label for="id">입사날짜</label>
-	    <input class="input-field" type="text" name="startdate" placeholder="2020-04-20">
+	    <input class="input-field" type="text" name="startdate" placeholder="20200420">
         <button>직원등록</button>
       </form>
       
