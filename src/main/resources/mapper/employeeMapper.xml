@@ -218,4 +218,8 @@
 		<include refid="positionMemberSearchCondition"/>
 	</select>
 	
+	
+	<delete id="deleteTeam" parameterType="int">
+		DELETE FROM team WHERE tno = #{tno}
+	</delete>
 </mapper>

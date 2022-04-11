@@ -95,4 +95,9 @@ public class EmployeeDAO {
 	public List<Employee> selectPositionMember(SearchCondition sc) throws Exception{
 		return session.selectList(namespace + "selectPositionMember", sc);
 	}
+	
+	public int deleteTeam(int tno) throws Exception{
+		return session.delete(namespace + "deleteTeam", tno);
+	}
+	
 }

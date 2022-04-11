@@ -112,6 +112,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	public int getPositionMemberCount(SearchCondition sc) throws Exception {
 		return employeeDao.selectPositionMemberCnt(sc);
 	}
+
+	@Override
+	public int deleteTeam(int tno) throws Exception {
+		return employeeDao.deleteTeam(tno);
+	}
 	
 	
 }

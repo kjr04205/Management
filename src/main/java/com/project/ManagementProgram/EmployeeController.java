@@ -1,5 +1,6 @@
 package com.project.ManagementProgram;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -163,6 +164,32 @@ public class EmployeeController {
 		}
 		
 		return "teamMember";
+	}
+	
+	@PostMapping("/teamManagement/delete")
+	public String deleteTeam(Team team, RedirectAttributes rattr) {
+		try {
+			int res = employeeservice.deleteTeam(team.getTno());
+			
+			if(res==0) 
+				throw new Exception();
+			
+			rattr.addFlashAttribute("msg", "DEL_OK");
+			return "redirect:/teamManagement";
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "DEL_ERR");
+			
+			String name;
+			try {
+				name = URLEncoder.encode(team.getName(), "utf-8");
+			} catch (UnsupportedEncodingException e1) {
+				e1.printStackTrace();
+				return "redirect:/teamManagement";
+			}
+			return "redirect:/teamManagement/member?tno="+team.getTno()+"&name="+name;
+		}
+		
 	}
 	
 	@GetMapping("/positionManagement")

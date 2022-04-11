@@ -47,5 +47,6 @@ public interface EmployeeService {
 	List<Employee> getPositionMember(SearchCondition sc) throws Exception;
 	
 	int getPositionMemberCount(SearchCondition sc) throws Exception;
-
+	
+	int deleteTeam(int tno) throws Exception;
 }

@@ -14,6 +14,9 @@
 		});
 	});
 	
+	let msg = "${msg}";
+	if(msg=="DEL_OK") alert("삭제가 정상적으로 처리되었습니다.");
+	
 </script>
 <style>
 	#team_top{
