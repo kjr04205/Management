@@ -76,4 +76,23 @@ public class EmployeeDAO {
 		return session.selectList(namespace + "selectTeamMember", sc);
 	}
 	
+	public int positionCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "positionCount", sc);
+	}
+	
+	public List<Position> selectPosition(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectPosition", sc);
+	}
+	
+	public int insertPosition(Position position) throws Exception{
+		return session.insert(namespace + "insertPosition", position);
+	}
+	
+	public int selectPositionMemberCnt(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "selectPositionMemberCnt", sc);
+	}
+	
+	public List<Employee> selectPositionMember(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectPositionMember", sc);
+	}
 }

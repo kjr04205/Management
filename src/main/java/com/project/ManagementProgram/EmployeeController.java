@@ -164,4 +164,55 @@ public class EmployeeController {
 		
 		return "teamMember";
 	}
+	
+	@GetMapping("/positionManagement")
+	public String positionManagement(SearchCondition sc, Model m) {
+		
+		try {
+			int totalCnt = employeeservice.getPositionCount(sc);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			List<Position> positionList = employeeservice.getPositionList(sc);
+			m.addAttribute("positionList", positionList);
+			m.addAttribute("ph", pageHandler);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "positionManagement";
+	}
+	
+	@PostMapping("/positionManagement/save")
+	public String positionManagementSave(Position position, Model m, RedirectAttributes rattr){
+		try {
+			System.out.println("position = " + position);
+			employeeservice.insertPosition(position);
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+		}
+		return "redirect:/positionManagement";
+	}
+	
+	@GetMapping("/positionManagement/member")
+	public String positionManagementMember(SearchCondition sc, Position position, Model m) {
+		sc.setKeyword(Integer.toString(position.getPno()));
+		try {
+			int totalCnt = employeeservice.getPositionMemberCount(sc);
+			
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			
+			List<Employee> employeeList = employeeservice.getPositionMember(sc);
+			m.addAttribute("employeeList", employeeList);
+			m.addAttribute("ph", pageHandler);
+			m.addAttribute("position", position);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "positionMember";
+	}
 }

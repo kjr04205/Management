@@ -37,5 +37,15 @@ public interface EmployeeService {
 	List<Employee> getTeamMember(SearchCondition sc) throws Exception;
 	
 	int getTeamMemberCount(SearchCondition sc) throws Exception;
+	
+	int getPositionCount(SearchCondition sc) throws Exception;
+	
+	List<Position> getPositionList(SearchCondition sc) throws Exception;
+	
+	int insertPosition(Position position) throws Exception;
+	
+	List<Employee> getPositionMember(SearchCondition sc) throws Exception;
+	
+	int getPositionMemberCount(SearchCondition sc) throws Exception;
 
 }

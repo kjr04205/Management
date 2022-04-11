@@ -153,4 +153,69 @@
 		<include refid="teamMemberSearchCondition"/>
 	</select>
 	
+	<select id="positionCount" parameterType="SearchCondition" resultType = "int">
+		select count(*) from position
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>;
+	</select>
+	
+	<select id="selectPosition" parameterType="SearchCondition" resultType="Position">
+		select pno, name
+		from position
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>
+		order by seq desc
+		limit #{offset} , #{pageSize}
+	</select>
+	
+	<insert id="insertPosition" parameterType="Position">
+		insert into position (name, seq)
+		select #{name} as name , max(seq)+1 as seq from position
+	</insert>
+	
+	<sql id="positionMemberSearchCondition">
+		<choose>
+			<when test='option=="A"'>
+				AND (e.name like concat('%',#{keyword2},'%') 
+				OR e.number like concat('%',#{keyword2},'%') 
+				OR  t.name like concat('%',#{keyword2},'%') )
+			</when>
+			<when test='option=="N"'>
+				AND e.name like concat('%',#{keyword2},'%')
+			</when>
+			<when test='option=="P"'>
+				AND e.number like concat('%',#{keyword2},'%') 
+			</when>
+			<when test='option=="T"'>
+				AND t.name like concat('%',#{keyword2},'%') 
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+	
+	<select id="selectPositionMember" parameterType="SearchCondition" resultType="Employee">
+		SELECT e.eno,
+		e.name,
+		e.number,
+		t.name as team
+		FROM employee e JOIN team t ON e.team = t.tno 
+		LEFT JOIN position p ON e.position = p.pno
+		WHERE p.pno = #{keyword}
+		<include refid="positionMemberSearchCondition"/>
+		ORDER BY eno DESC
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	
+	<select id="selectPositionMemberCnt" parameterType="SearchCondition" resultType="int">
+		SELECT count(*) 
+		FROM employee e JOIN team t ON e.team = t.tno 
+		LEFT JOIN position p ON e.position = p.pno
+		WHERE p.pno = #{keyword}
+		<include refid="positionMemberSearchCondition"/>
+	</select>
+	
 </mapper>
