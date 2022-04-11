@@ -102,8 +102,8 @@
 		<table class="team_table">
 			<thead>
 				<tr>
-					<th class="no">No.</th>
-					<th>부서명</th>
+					<th class="no" width="20%">No.</th>
+					<th width="80%">부서명</th>
 				</tr>
 			</thead>
 			<tbody>

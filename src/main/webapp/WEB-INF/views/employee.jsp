@@ -19,13 +19,13 @@
 		<table class="employee_table">
 			<thead>
 				<tr>
-					<th>No.</th>
-					<th>이름</th>
-					<th>전화번호</th>
-					<th>직책</th>
-					<th>부서</th>
-					<th>입사날짜</th>
-					<th>&nbsp;</th>
+					<th width="10%">No.</th>
+					<th width="15%">이름</th>
+					<th width="20%">전화번호</th>
+					<th width="10%">직책</th>
+					<th width="20%">부서</th>
+					<th width="20%">입사날짜</th>
+					<th width="5%">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -37,7 +37,7 @@
 					<td>${employee.position }</td>
 					<td>${employee.team }</td>
 					<td>${employee.startdate }</td>
-					<td><a href="<c:url value='/employee/remove?eno=${employee.eno}'/>">X</a></td>
+					<td><a href="<c:url value='/employee/remove?eno=${employee.eno}'/>"><img style="max-width:25px; max-height:25px; width:100%;" src="resources/img/delete.png" /></a></td>
 				</tr>
 			</c:forEach>
 			</tbody>
