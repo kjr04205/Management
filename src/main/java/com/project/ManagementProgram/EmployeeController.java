@@ -31,6 +31,11 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService employeeservice; 
 	
+	public List<Employee> employeeList() throws Exception{
+		List<Employee> list = employeeservice.getList();
+		return list;
+	}
+	
 	@RequestMapping("/employee")
 	public String employee(Model m, SearchCondition sc) throws Exception {
 		

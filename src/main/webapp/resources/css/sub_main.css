@@ -3,6 +3,14 @@
 	color:#4CAF50;
 	font-weight:bold;
 }
+.excel-download{
+	position:relative;
+	float:right;
+	padding:5px 10px;
+}
+.excel-download > img{
+	width:30px;
+}
 
 .sub_header{
 	float:left;

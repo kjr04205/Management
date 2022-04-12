@@ -16,6 +16,8 @@
 	</div>
 	
 	<div>
+		<a href="<c:url value='/excel'/>" class="excel-download"><img src="resources/img/excel.png" /></a>
+		
 		<table class="employee_table">
 			<thead>
 				<tr>
