@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@include file ="sub_header.jsp" %>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/searchBar.css">
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item01 ').addClass("on");

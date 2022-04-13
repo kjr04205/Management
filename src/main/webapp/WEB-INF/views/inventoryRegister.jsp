@@ -25,13 +25,13 @@
 	    <label for="id">자재 수량</label>
 	    <input class="input-field" type="number" name="count">
 	    <label for="id">자재 위치</label>
-	    <select name="location">
+	    <select name="lno">
 	    	<c:forEach var="location" items="${location}">
 	    		<option value=${location.lno}>${location.name}</option>
 	    	</c:forEach>
 	    </select>
 	     <label for="id">분류</label>
-	    <select name="group">
+	    <select name="igno">
 	    	<c:forEach var="group" items="${group}">
 	    		<option value=${group.igno}>${group.name}</option>
 	    	</c:forEach>

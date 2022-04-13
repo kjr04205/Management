@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.DTO.Employee;
 import com.project.DTO.IGroup;
+import com.project.DTO.Inventory;
 import com.project.DTO.Location;
+import com.project.DTO.PageHandler2;
+import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 import com.project.Service.InventoryService;
 
@@ -22,8 +26,26 @@ public class InventoryController {
 	@Autowired
 	InventoryService inventoryservice;
 	
+	public List<Inventory> inventoryList() throws Exception{
+		List<Inventory> list = inventoryservice.getList();
+		return list;
+	}
+	
 	@RequestMapping("/inventory")
-	public String inventory() {
+	public String inventory(Model m, SearchCondition sc) throws Exception {
+		
+		try {
+			int totalCnt = inventoryservice.getCount(sc);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			
+			List<Inventory> list = inventoryservice.getPage(sc);
+			m.addAttribute("list", list);
+			m.addAttribute("ph", pageHandler);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "inventory";
 	}
 	
@@ -40,17 +62,16 @@ public class InventoryController {
 	}
 	
 	@PostMapping("/inventoryRegister/save")
-	public String inventoryRegisterSave(Location location, RedirectAttributes rattr){
+	public String inventoryRegisterSave(Inventory inventory, RedirectAttributes rattr){
 		try {
-			System.out.println("location = " + location);
-			inventoryservice.locationInsert(location);
+			inventoryservice.insertInventory(inventory);
 			rattr.addFlashAttribute("msg", "ADD_OK");
 			
 		}catch(Exception e) {
 			e.printStackTrace();
 			rattr.addFlashAttribute("msg", "ADD_ERR");
 		}
-		return "redirect:/inventoryLocation";
+		return "redirect:/inventoryRegister";
 	}
 	
 	@RequestMapping("/inventoryLocation")

@@ -3,6 +3,64 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
         
 <mapper namespace="com.project.DAO.InventoryMapper">
+	<sql id="selectInventoryBaseSql">
+		SELECT i.ino,
+		i.name,
+		i.code,
+		i.count,
+		l.name as lno,
+		g.name as igno
+		FROM inventory i LEFT JOIN location l ON i.lno = l.lno
+		LEFT JOIN inventory_group g ON i.igno = g.igno
+		
+	</sql>
+	<sql id="inventorySearchCondition">
+    	<choose>
+			<when test='option=="A"'>
+				AND (i.name like concat('%',#{keyword},'%') 
+				OR i.code like concat('%',#{keyword},'%') 
+				OR g.name like concat('%',#{keyword},'%') )
+			</when>
+			<when test='option=="N"'>
+				AND i.name like concat('%',#{keyword},'%')
+			</when>
+			<when test='option=="C"'>
+				AND i.code like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="R"'>
+				AND g.name like concat('%',#{keyword},'%') 
+			</when>
+			<otherwise></otherwise>
+		</choose>
+    </sql>
+    
+    <select id="selectInventoryPage" parameterType="SearchCondition" resultType="Inventory">
+		<include refid="selectInventoryBaseSql"></include>
+		WHERE TRUE
+        <include refid="inventorySearchCondition"></include>
+		ORDER BY ino DESC
+		LIMIT #{offset}, #{pageSize}
+		;
+	</select>
+	
+	<select id="count" parameterType = "SearchCondition" resultType="int">
+        SELECT count(*)
+        FROM inventory i LEFT JOIN location l ON i.lno = l.lno
+		LEFT JOIN inventory_group g ON i.igno = g.igno
+        WHERE TRUE
+        <include refid="inventorySearchCondition"></include>
+        ;
+    </select>
+    
+    <select id="selectInventory" resultType="Inventory">
+    	<include refid="selectInventoryBaseSql"></include>
+    	ORDER BY ino DESC;
+    </select>
+    
+    <insert id="insertInventory" parameterType="Inventory">
+    	insert into inventory (name, code, count, lno, igno)
+    	values (#{name}, #{code}, #{count}, #{lno}, #{igno});
+    </insert>
 	
 	<select id="selectLocationAll" resultType="Location">
 		select * from location order by name;

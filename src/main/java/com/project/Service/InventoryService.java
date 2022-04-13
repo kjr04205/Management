@@ -3,7 +3,9 @@ package com.project.Service;
 import java.util.List;
 
 import com.project.DTO.IGroup;
+import com.project.DTO.Inventory;
 import com.project.DTO.Location;
+import com.project.DTO.SearchCondition;
 
 public interface InventoryService {
 
@@ -14,4 +16,12 @@ public interface InventoryService {
 	int locationInsert(Location location) throws Exception;
 
 	int igroupInsert(IGroup igroup) throws Exception;
+	
+	List<Inventory> getPage(SearchCondition sc) throws Exception;
+	
+	int getCount(SearchCondition sc) throws Exception;
+	
+	int insertInventory(Inventory inventory) throws Exception;
+	
+	List<Inventory> getList() throws Exception;
 }

@@ -11,5 +11,6 @@
         <typeAlias alias="SearchCondition" type="com.project.DTO.SearchCondition"/>
         <typeAlias alias="Location" type="com.project.DTO.Location"/>
         <typeAlias alias="IGroup" type="com.project.DTO.IGroup"/>
+        <typeAlias alias="Inventory" type="com.project.DTO.Inventory"/>
     </typeAliases>
 </configuration>
