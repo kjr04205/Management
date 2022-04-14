@@ -52,4 +52,16 @@ public class InventoryDAO {
 	public int insertInventory(Inventory inventory) throws Exception{
 		return session.insert(namespace + "insertInventory", inventory); 
 	}
+	
+	public Inventory selectInventory(int ino) throws Exception{
+		return session.selectOne(namespace + "selectInventoryOne", ino);
+	}
+	
+	public int updateInventory(Inventory inventory) throws Exception{
+		return session.update(namespace + "updateInventory", inventory);
+	}
+	
+	public int deleteInventory(int ino) throws Exception{
+		return session.delete(namespace + "deleteInventory", ino);
+	}
 }

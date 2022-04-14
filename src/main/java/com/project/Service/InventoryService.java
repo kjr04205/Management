@@ -24,4 +24,10 @@ public interface InventoryService {
 	int insertInventory(Inventory inventory) throws Exception;
 	
 	List<Inventory> getList() throws Exception;
+	
+	Inventory getInventory(int ino) throws Exception;
+	
+	int updateInventory(Inventory inventory) throws Exception;
+	
+	int deleteInventory(int ino) throws Exception;
 }

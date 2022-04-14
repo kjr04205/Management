@@ -38,7 +38,6 @@ public class EmployeeController {
 	
 	@RequestMapping("/employee")
 	public String employee(Model m, SearchCondition sc) throws Exception {
-		
 		try {
 			int totalCnt = employeeservice.getCount(sc);
 			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);

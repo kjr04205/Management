@@ -58,4 +58,19 @@ public class InventoryServiceImpl implements InventoryService {
 	public int insertInventory(Inventory inventory) throws Exception{
 		return inventoryDao.insertInventory(inventory);
 	}
+
+	@Override
+	public Inventory getInventory(int ino) throws Exception {
+		return inventoryDao.selectInventory(ino);
+	}
+
+	@Override
+	public int updateInventory(Inventory inventory) throws Exception {
+		return inventoryDao.updateInventory(inventory);
+	}
+
+	@Override
+	public int deleteInventory(int ino) throws Exception {
+		return inventoryDao.deleteInventory(ino);
+	}
 }

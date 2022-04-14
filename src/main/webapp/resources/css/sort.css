@@ -1,0 +1,29 @@
+
+.sort-button{
+		float:left;
+		border: 0;
+		margin:5px;
+		padding:0;
+		color: #FFFFFF;
+		-webkit-transition: all 0.3 ease;
+		transition: all 0.3 ease;
+		cursor: pointer;
+		max-width:30px; max-height:30px; width:100%;
+}
+	
+
+.sort {
+  width: 150px;
+  padding: .8em .5em;
+  font-family: inherit;
+  background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;  
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid #999;
+  border-radius: 0px;
+}
+
+.sort::-ms-expand { /* for IE 11 */
+    display: none;
+}

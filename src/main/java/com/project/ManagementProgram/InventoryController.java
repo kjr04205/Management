@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,7 +35,6 @@ public class InventoryController {
 	
 	@RequestMapping("/inventory")
 	public String inventory(Model m, SearchCondition sc) throws Exception {
-		
 		try {
 			int totalCnt = inventoryservice.getCount(sc);
 			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
@@ -111,4 +112,63 @@ public class InventoryController {
 		return "redirect:/inventoryGroup";
 	}
 	
+	@GetMapping("/inventory/update")
+	public String updateInventory(int ino, Model m, RedirectAttributes rattr) {
+		try {
+			Inventory inventory = inventoryservice.getInventory(ino);
+			List<Location> lList = inventoryservice.getLocationList();			
+			List<IGroup> IGroup = inventoryservice.getGroupList();
+			
+			m.addAttribute("location", lList);
+			m.addAttribute("group", IGroup);
+
+			m.addAttribute("inventory", inventory);
+			m.addAttribute("type","Modify");	
+			return "inventoryRegister";
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "MOD_ERR");
+			return "redirect:/inventory";
+		}
+		
+	}
+		
+	@PostMapping("/inventory/update")
+	public String updateInventory(Inventory inventory, RedirectAttributes rattr) {
+		try {
+			int res = inventoryservice.updateInventory(inventory);
+			
+			if(res!=1) {
+				throw new Exception("update error: "+inventory.getIno());
+			}
+			
+			rattr.addFlashAttribute("msg","MOD_OK");
+			return "redirect:/inventory";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "MOD_ERR");
+			return "redirect:/inventory/update?ino="+inventory.getIno();
+		}
+		
+	}
+	
+	@RequestMapping("/inventory/delete")
+	public String deleteInventory(int ino, RedirectAttributes rattr) {
+		try {
+			int res = inventoryservice.deleteInventory(ino);
+			
+			if(res!=1) {
+				throw new Exception("delete error: "+ino);
+			}
+			
+			rattr.addFlashAttribute("msg","REMOVE_OK");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "REMOVE_ERR");
+		}
+		return "redirect:/inventory";
+		
+	}
 }

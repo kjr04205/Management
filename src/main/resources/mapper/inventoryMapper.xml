@@ -33,12 +33,39 @@
 			<otherwise></otherwise>
 		</choose>
     </sql>
+    <sql id="InventorySort">
+    	<choose>
+			<when test='sort=="N"'>
+				ORDER BY name
+			</when>
+			<when test='sort=="C"'>
+				ORDER BY code
+			</when>
+			<when test='sort=="CNT"'>
+				ORDER BY count
+			</when>
+			<when test='sort=="L"'>
+				ORDER BY l.name
+			</when>
+			<when test='sort=="G"'>
+				ORDER BY g.name
+			</when>
+			<otherwise>
+				ORDER BY ino
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='sortType=="ASC"'> ASC</when>
+			<otherwise> DESC</otherwise>
+		</choose>
+    </sql>
     
     <select id="selectInventoryPage" parameterType="SearchCondition" resultType="Inventory">
 		<include refid="selectInventoryBaseSql"></include>
 		WHERE TRUE
         <include refid="inventorySearchCondition"></include>
-		ORDER BY ino DESC
+<!--ORDER BY ino DESC  -->
+		<include refid="InventorySort"/>		
 		LIMIT #{offset}, #{pageSize}
 		;
 	</select>
@@ -54,7 +81,8 @@
     
     <select id="selectInventory" resultType="Inventory">
     	<include refid="selectInventoryBaseSql"></include>
-    	ORDER BY ino DESC;
+    	<!-- ORDER BY ino DESC;-->
+    	<include refid="InventorySort"/>	
     </select>
     
     <insert id="insertInventory" parameterType="Inventory">
@@ -77,5 +105,20 @@
 	<insert id="IGroupInsert" parameterType="IGroup">
 		insert into m00001.inventory_group(name) values(#{name});
 	</insert>
+	
+	<select id="selectInventoryOne" parameterType="int" resultType="Inventory">
+		<include refid="selectInventoryBaseSql"></include>
+		where i.ino = #{ino}
+	</select>
+	
+	<update id="updateInventory" parameterType="Inventory">
+		update inventory
+		set name=#{name}, code=#{code}, count=#{count}, lno=#{lno}, igno=#{igno}
+		where ino=#{ino}
+	</update>
+	
+	<delete id="deleteInventory" parameterType="int">
+		delete from inventory where ino=#{ino} 
+	</delete>
 	
 </mapper>

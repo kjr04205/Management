@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@include file ="sub_header.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/sort.css">
 <script>
 	$('.sub_header li a').removeClass("on");
 	$('.employee_item01 ').addClass("on");
@@ -8,10 +9,45 @@
 	if(msg=="REMOVE_OK") alert("삭제되었습니다.");
 	if(msg=="UPDATE_OK") alert("수정이 완료되었습니다.");
 	if(msg=="UPDATE_LOAD_ERR") alert("직원을 불러 올 수 없습니다.");
+
+	$(document).ready(function(){
+		$("#sort").on('change',function(){
+			document.getElementById('sortFrm').submit();
+		});
+	
+		$(".sort-button").on("click",function(){
+			let type = document.getElementById('sortType').value;
+			if(type=='DESC' || type=='')
+				document.getElementById('sortType').value= 'ASC';
+			else
+				document.getElementById('sortType').value= 'DESC';
+			
+		});	
+	});
+	
 </script>
 <div class="container">
-	<div>
-		<h2 class="container_title">직원 관리</h2>
+	<div style="overflow: hidden">
+		<h2 class="container_title" style="float:left">직원 관리</h2>
+		
+		<div style="overflow:hidden; float:right;">
+			<form action="<c:url value="/employee"/>" method="get" id="sortFrm">
+				<input type="hidden" id="sortType" name="sortType" value="${ph.sc.getSortType()}"/>
+				<input type="hidden" name="keyword" value="${ph.sc.keyword}"/>
+				<input type="hidden" name="option" value="${ph.sc.option}"/>
+				<input style="float:left" type="image" class="sort-button" src="${pageContext.request.contextPath}/resources/img/sortIcon.png" alt="정렬" >
+				<select style="float:right" id="sort" class="sort" name="sort">
+					<option value="" ${ph.sc.sort=='' ? "selected" : ""}>최신순</option>
+					<option value="N" ${ph.sc.sort=='N' ? "selected" : ""}>이름</option>
+					<option value="P" ${ph.sc.sort=='P' ? "selected" : ""}>전화번호</option>
+					<option value="R" ${ph.sc.sort=='R' ? "selected" : ""}>직책</option>
+					<option value="T" ${ph.sc.sort=='T' ? "selected" : ""}>부서</option>
+					<option value="D" ${ph.sc.sort=='D' ? "selected" : ""}>입사날짜</option>
+				</select>
+			</form>
+			
+		</div>
+		
 	</div>
 	
 	<div>
@@ -61,7 +97,7 @@
                     <option value="N" ${ph.sc.option=='N' ? "selected" : ""}>이름</option>
                     <option value="P" ${ph.sc.option=='P' ? "selected" : ""}>전화번호</option>
                     <option value="R" ${ph.sc.option=='R' ? "selected" : ""}>직책</option>
-                    <option value="T" ${ph.sc.option=='R' ? "selected" : ""}>부서</option>
+                    <option value="T" ${ph.sc.option=='T' ? "selected" : ""}>부서</option>
                 </select>
                 <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
                 <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">

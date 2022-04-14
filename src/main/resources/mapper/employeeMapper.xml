@@ -23,7 +23,8 @@
 		<include refid="selectEmployeeBaseSql"></include>
 		WHERE TRUE
         <include refid="employeeSearchCondition"></include>
-		ORDER BY eno DESC
+		<!--ORDER BY eno DESC-->
+		<include refid="employeeSort"></include>
 		LIMIT #{offset}, #{pageSize}
 		;
 	</select>
@@ -57,6 +58,33 @@
 				AND t.name like concat('%',#{keyword},'%') 
 			</when>
 			<otherwise></otherwise>
+		</choose>
+    </sql>
+    
+     <sql id="employeeSort">
+    	<choose>
+			<when test='sort=="N"'>
+				ORDER BY e.name
+			</when>
+			<when test='sort=="P"'>
+				ORDER BY e.number
+			</when>
+			<when test='sort=="R"'>
+				ORDER BY p.name
+			</when>
+			<when test='sort=="T"'>
+				ORDER BY t.name
+			</when>
+			<when test='sort=="D"'>
+				ORDER BY e.startdate
+			</when>
+			<otherwise>
+				ORDER BY eno
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='sortType=="ASC"'> ASC</when>
+			<otherwise> DESC</otherwise>
 		</choose>
     </sql>
     

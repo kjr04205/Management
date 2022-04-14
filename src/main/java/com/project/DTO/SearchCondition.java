@@ -9,14 +9,18 @@ public class SearchCondition {
     private String keyword = "";
     private String keyword2 = "";
     private String option = "";
+    private String sort = "";
+    private String sortType="";
 
     public SearchCondition(){}
-    public SearchCondition(Integer page, Integer pageSize, String keyword, String keyword2, String option) {
+    public SearchCondition(Integer page, Integer pageSize, String keyword, String keyword2, String option, String sort, String sortType) {
         this.page = page;
         this.pageSize = pageSize;
         this.keyword = keyword;
         this.keyword2 = keyword2;
         this.option = option;
+        this.sort = sort;
+        this.sortType = sortType;
     }
 
     public String getQueryString(Integer page){
@@ -27,6 +31,8 @@ public class SearchCondition {
                 .queryParam("option",option)
                 .queryParam("keyword",keyword)
                 .queryParam("keyword2",keyword2)
+                .queryParam("sort",sort)
+                .queryParam("sortType",sortType)
                 .build().toString();
     }
 
@@ -42,6 +48,8 @@ public class SearchCondition {
                 .queryParam("option",option)
                 .queryParam("keyword",keyword)
                 .queryParam("keyword2",keyword2)
+                .queryParam("sort",sort)
+                .queryParam("sortType",sortType)
                 .build().toString();
     }
 
@@ -87,11 +95,26 @@ public class SearchCondition {
 	public void setKeyword2(String keyword2) {
 		this.keyword2 = keyword2;
 	}
+	
+	public String getSort() {
+		return sort;
+	}
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+	
+	public String getSortType() {
+		return sortType;
+	}
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
+	}
+	
 	@Override
 	public String toString() {
 		return "SearchCondition [page=" + page + ", pageSize=" + pageSize + ", keyword=" + keyword + ", keyword2="
-				+ keyword2 + ", option=" + option + "]";
+				+ keyword2 + ", option=" + option + ", sort=" + sort + ", sortType=" + sortType + "]";
 	}
-
+	
    
 }
