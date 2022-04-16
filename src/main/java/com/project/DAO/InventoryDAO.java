@@ -64,4 +64,20 @@ public class InventoryDAO {
 	public int deleteInventory(int ino) throws Exception{
 		return session.delete(namespace + "deleteInventory", ino);
 	}
+	
+	public List<Location> selectLocation(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectLocation", sc);
+	}
+	
+	public int locationCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "locationCount", sc);
+	}
+	
+	public List<IGroup> selectGroup(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectGroup", sc);
+	}
+	
+	public int groupCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "groupCount", sc);
+	}
 }

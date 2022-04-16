@@ -5,6 +5,7 @@ import java.util.List;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
+import com.project.DTO.Position;
 import com.project.DTO.SearchCondition;
 
 public interface InventoryService {
@@ -30,4 +31,12 @@ public interface InventoryService {
 	int updateInventory(Inventory inventory) throws Exception;
 	
 	int deleteInventory(int ino) throws Exception;
+	
+	List<Location> getLocationList(SearchCondition sc) throws Exception;
+	
+	int getLocationCount(SearchCondition sc) throws Exception;
+	
+	List<IGroup> getGroupList(SearchCondition sc) throws Exception;
+		
+	int getGroupCount(SearchCondition sc) throws Exception;
 }

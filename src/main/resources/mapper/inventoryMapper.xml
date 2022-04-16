@@ -121,4 +121,27 @@
 		delete from inventory where ino=#{ino} 
 	</delete>
 	
+	<select id="selectLocation" resultType="Location">
+		select * from Location order by name;
+	</select>
+	
+	<select id="locationCount" parameterType="SearchCondition" resultType = "int">
+		select count(*) from location
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>;
+	</select>
+	
+	<select id="selectGroup" resultType="IGroup">
+		select * from inventory_group order by name;
+	</select>
+	
+	<select id="groupCount" parameterType="SearchCondition" resultType = "int">
+		select count(*) from inventory_group
+		where true
+		<if test='keyword!=""'>
+			AND name like concat('%',#{keyword},'%')
+		</if>;
+	</select>
 </mapper>

@@ -10,6 +10,7 @@ import com.project.DTO.Employee;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
+import com.project.DTO.Position;
 import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 
@@ -72,5 +73,25 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public int deleteInventory(int ino) throws Exception {
 		return inventoryDao.deleteInventory(ino);
+	}
+	
+	@Override
+	public List<Location> getLocationList(SearchCondition sc) throws Exception {
+		return inventoryDao.selectLocation(sc);
+	}
+	
+	@Override
+	public int getLocationCount(SearchCondition sc) throws Exception {
+		return inventoryDao.locationCount(sc);
+	}
+	
+	@Override
+	public List<IGroup> getGroupList(SearchCondition sc) throws Exception {
+		return inventoryDao.selectGroup(sc);
+	}
+	
+	@Override
+	public int getGroupCount(SearchCondition sc) throws Exception {
+		return inventoryDao.groupCount(sc);
 	}
 }

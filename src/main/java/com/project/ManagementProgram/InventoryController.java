@@ -75,8 +75,17 @@ public class InventoryController {
 		return "redirect:/inventoryRegister";
 	}
 	
-	@RequestMapping("/inventoryLocation")
-	public String inventoryLocation() {
+	@GetMapping("/inventoryLocation")
+	public String inventoryLocation(SearchCondition sc, Model m) {
+		try {
+			int totalCnt = inventoryservice.getLocationCount(sc);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			List<Location> locationList = inventoryservice.getLocationList(sc);
+			m.addAttribute("locationList", locationList);
+			m.addAttribute("ph", pageHandler);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return "inventoryLocation";
 	}
 	
@@ -94,8 +103,19 @@ public class InventoryController {
 		return "redirect:/inventoryLocation";
 	}
 	
-	@RequestMapping("/inventoryGroup")
-	public String inventoryGroup() {
+	@GetMapping("/inventoryGroup")
+	public String inventoryGroup(SearchCondition sc, Model m) {
+		try {
+			int totalCnt = inventoryservice.getGroupCount(sc);
+			PageHandler2 pageHandler = new PageHandler2(totalCnt, sc);
+			List<IGroup> groupList = inventoryservice.getGroupList(sc);
+			m.addAttribute("groupList", groupList);
+			m.addAttribute("ph", pageHandler);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		return "inventoryGroup";
 	}
 	
