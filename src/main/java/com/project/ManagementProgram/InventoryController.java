@@ -191,4 +191,21 @@ public class InventoryController {
 		return "redirect:/inventory";
 		
 	}
+	
+	@RequestMapping("/inventoryGoods")
+	public String inventoryGoods(Model m) throws Exception {
+		
+		//List<IGroup> IGroup = inventoryservice.getGroupList();
+		
+		return "inventoryGoods";
+	}
+	
+	@RequestMapping("/inventoryGoodsLend")
+	public String inventoryGoodsLend(Model m) throws Exception {
+		
+		//List<Location> lList = inventoryservice.getLocationList();
+		
+		return "inventoryGoodsLend";
+	}
+
 }

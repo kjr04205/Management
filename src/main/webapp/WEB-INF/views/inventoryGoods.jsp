@@ -102,11 +102,23 @@
 	    	<h2>입고 자재 등록</h2><br><br>
 			<span class="form_close">X</span>
 	    	<label for="id">입고 품목</label>
-	   		<input class="input-field" type="text" name="goods">
+	   		<select name="goods">
+		    	<c:forEach var="inventory" items="${inventory}">
+		    		<option value=${inventory.ino}>${inventory.name}</option>
+		    	</c:forEach>
+	    	</select>
 	   		<label for="id">반납자</label>
-	   		<input class="input-field" type="text" name="member">
+	   		<select name="member">
+		    	<c:forEach var="employee" items="${employee}">
+		    		<option value=${employee.eno}>${employee.name}</option>
+		    	</c:forEach>
+	    	</select>
 	   		<label for="id">반납자 부서</label>
-	   		<input class="input-field" type="text" name="group">
+	   		<select name="team">
+		    	<c:forEach var="team" items="${team}">
+		    		<option value=${team.tno}>${team.name}</option>
+		    	</c:forEach>
+	    	</select>
 	   		<label for="id">반납 수량</label>
 	   		<input class="input-field" type="text" name="count">
 	        <button>자재 입고등록</button>
@@ -132,7 +144,7 @@
 					<td class="no">${no}</td>
 					<td>${goods.name}</td>
 					<td>${goods.member}</td>
-					<td>${goods.group}</td>
+					<td>${goods.team}</td>
 					<td>${goods.count}</td>
 					<td>${goods.date}</td>
 				</tr>
