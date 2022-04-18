@@ -15,13 +15,38 @@
 	if(msg=="ADD_ERR") alert("등록에 실패하였습니다. 관리자에게 문의해주세요.");
 	
 	$(document).ready(function(){
+		var employee={};
 		$('#insert').click(function(){
+			$.ajax({
+				type:"GET",
+				url:"/ManagementProgram/inventoryGoods/employee",
+				dataType:'json',
+				success:function(result){
+					employee = result;
+					setMember(employee);
+				},
+				error:function(err){
+					alert('에러');
+				}
+			});
 			$('.register').css("display","block");
 		});	
 		$('.form_close').click(function(){
 			$('.register').css("display","none");
 		});
+		
+		$("#employeeBox").on('change',function(){
+			var idx = $("#employeeBox option").index($("#employeeBox option:selected"));
+			$('input[name=group]').attr('value',employee[idx].team);
+		});
 	});
+	
+	function setMember(employee){
+		for(var i=0;i<employee.length;i++){
+			$("#employeeBox").append('<option value="'+employee[i].eno+'">'+employee[i].name+'</option>');
+		}
+		$('input[name=group]').attr('value',employee[0].team);
+	}
 </script>
 <style>
 	#position_top{
@@ -104,9 +129,10 @@
 	    	<label for="id">출고 품목</label>
 	   		<input class="input-field" type="text" name="goods">
 	   		<label for="id">대여자</label>
-	   		<input class="input-field" type="text" name="member">
+	   		<!-- input class="input-field" type="text" name="member"-->
+	   		<select name="employee" id="employeeBox"></select>
 	   		<label for="id">대여자 부서</label>
-	   		<input class="input-field" type="text" name="group">
+	   		<input class="input-field" type="text" name="group" readonly>
 	   		<label for="id">대여 수량</label>
 	   		<input class="input-field" type="text" name="count">
 	        <button>자재 출고등록</button>

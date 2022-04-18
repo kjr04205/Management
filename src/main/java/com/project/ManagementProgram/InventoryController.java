@@ -1,5 +1,6 @@
 package com.project.ManagementProgram;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.DTO.Employee;
@@ -208,4 +210,19 @@ public class InventoryController {
 		return "inventoryGoodsLend";
 	}
 
+	@ResponseBody
+	@RequestMapping("/inventoryGoods/employee")
+	public List<Employee> getEmployeeList(){
+		List<Employee> empList = new ArrayList<Employee>();
+		Employee e = new Employee();
+		e.setName("일번");
+		e.setTeam("1");
+		empList.add(e);
+		Employee e2 = new Employee();
+		e2.setName("이번");
+		e2.setTeam("2");
+		empList.add(e2);
+		System.out.println(empList);
+		return empList;
+	}
 }
