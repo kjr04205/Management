@@ -69,6 +69,8 @@
 			<li><a href="<c:url value="/inventoryRegister"/>" class="inventory_item02">자재 등록</a></li>
 			<li><a href="<c:url value="/inventoryLocation"/>" class="inventory_item03">위치별 관리 </a></li>
 			<li><a href="<c:url value="/inventoryGroup"/>" class="inventory_item04">분류별 관리</a></li>
+			<li><a href="<c:url value="/inventoryGoods"/>" class="inventory_item05">입고 관리</a></li>
+			<li><a href="<c:url value="/inventoryGoodsLend"/>" class="inventory_item06">출고 관리</a></li>
 		</ul>
 	</div>	
 </div>
