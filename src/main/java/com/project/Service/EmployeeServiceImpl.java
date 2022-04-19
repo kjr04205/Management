@@ -19,6 +19,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 	private EmployeeDAO employeeDao;
 	
 	@Override
+	public List<Employee> getEmployee() throws Exception{
+		return employeeDao.selectEmployee();
+	}
+	
+	@Override
 	public int insertEmployee(Employee employee) throws Exception{
 		return employeeDao.insertEmployee(employee);
 	}

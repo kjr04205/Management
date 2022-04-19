@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.DTO.Employee;
+import com.project.DTO.Goods;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
 import com.project.DTO.PageHandler2;
 import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
+import com.project.Service.EmployeeService;
 import com.project.Service.InventoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class InventoryController {
 	
 	@Autowired
 	InventoryService inventoryservice;
+	
+	@Autowired
+	EmployeeService employeeservice;
 	
 	public List<Inventory> inventoryList() throws Exception{
 		List<Inventory> list = inventoryservice.getList();
@@ -204,16 +209,37 @@ public class InventoryController {
 	
 	@RequestMapping("/inventoryGoodsLend")
 	public String inventoryGoodsLend(Model m) throws Exception {
+		List<Inventory> invList = inventoryservice.getList();
+		m.addAttribute("inventory", invList);
 		
-		//List<Location> lList = inventoryservice.getLocationList();
+		List<Goods> goodsList = inventoryservice.getGoodsList();
+		m.addAttribute("goodsList", goodsList);
 		
 		return "inventoryGoodsLend";
+	}
+	
+	@PostMapping("/inventoryGoodsLend/save")
+	public String inventoryGoodsLendSave(Goods goods, RedirectAttributes rattr){
+		try {
+			inventoryservice.insertInventoryGoods(goods);
+			rattr.addFlashAttribute("msg", "ADD_OK");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "ADD_ERR");
+		}
+		return "redirect:/inventoryGoodsLend";
 	}
 
 	@ResponseBody
 	@RequestMapping("/inventoryGoods/employee")
-	public List<Employee> getEmployeeList(){
-		List<Employee> empList = new ArrayList<Employee>();
+	public List<Employee> getEmployeeList(Model m) throws Exception{
+		List<Employee> empList = employeeservice.getEmployee();
+		
+		m.addAttribute("employee", empList);
+		return empList;
+		
+		/*List<Employee> empList = new ArrayList<Employee>();
 		Employee e = new Employee();
 		e.setName("일번");
 		e.setTeam("1");
@@ -223,6 +249,6 @@ public class InventoryController {
 		e2.setTeam("2");
 		empList.add(e2);
 		System.out.println(empList);
-		return empList;
+		return empList;*/
 	}
 }

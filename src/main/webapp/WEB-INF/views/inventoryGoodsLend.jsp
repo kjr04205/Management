@@ -37,7 +37,7 @@
 		
 		$("#employeeBox").on('change',function(){
 			var idx = $("#employeeBox option").index($("#employeeBox option:selected"));
-			$('input[name=group]').attr('value',employee[idx].team);
+			$('input[name=ggroup]').attr('value',employee[idx].team);
 		});
 	});
 	
@@ -127,14 +127,24 @@
 	    	<h2>출고 자재 등록</h2><br><br>
 			<span class="form_close">X</span>
 	    	<label for="id">출고 품목</label>
-	   		<input class="input-field" type="text" name="goods">
+	   		<select name="gname" id="inventoryBox">
+	   			<option value="" selected disabled hidden>출고 품목을 선택하세요.</option>
+	   			<c:forEach var="item" items="${inventory}">
+	    			<option value=${item.ino}>${item.name}</option>
+	    		</c:forEach>
+	   		</select>
 	   		<label for="id">대여자</label>
 	   		<!-- input class="input-field" type="text" name="member"-->
-	   		<select name="employee" id="employeeBox"></select>
+	   		<select name="gmember" id="employeeBox">
+	   			<option value="" selected disabled hidden>대여자를 선택하세요.</option>
+	   			<c:forEach var="item" items="${employee}">
+	    			<option value=${item.eno}>${item.name}</option>
+	    		</c:forEach>
+	   		</select>
 	   		<label for="id">대여자 부서</label>
-	   		<input class="input-field" type="text" name="group" readonly>
+	   		<input class="input-field" type="text" name="ggroup" readonly>
 	   		<label for="id">대여 수량</label>
-	   		<input class="input-field" type="text" name="count">
+	   		<input class="input-field" type="number" name="gcount">
 	        <button>자재 출고등록</button>
 	    </form>
   	</div>
@@ -148,17 +158,19 @@
 					<th>대여자</th>
 					<th>대여자 부서</th>
 					<th>대여 수량</th>
+					<th>날짜</th>
 				</tr>
 			</thead>
 			<tbody>
 			<c:set var ="no" value="${ph.getTotalCnt()-((ph.sc.getPage()-1) * ph.sc.getPageSize())}"/>
 			<c:forEach var="goods" items="${goodsList}">
 				<tr>
-					<td class="no">${no}</td>
-					<td>${goods.name}</td>
-					<td>${goods.member}</td>
-					<td>${goods.group}</td>
-					<td>${goods.count}</td>
+					<td class="no">${goods.gno}</td>
+					<td>${goods.gname}</td>
+					<td>${goods.gmember}</td>
+					<td>${goods.ggroup}</td>
+					<td>${goods.gcount}</td>
+					<td>${goods.gdate}</td>
 				</tr>
 				<c:set var="no" value="${no-1}"/>
 			</c:forEach>
@@ -166,17 +178,17 @@
 		</table>
 		<div class="paging">
 			<c:if test="${ph.showPrev}">
-				<a href="<c:url value='/inventoryGoods${ph.sc.getQueryString(ph.beginPage-1)}'/>"><img src="resources/img/prev.png" /></a>
+				<a href="<c:url value='/inventoryGoodsLend${ph.sc.getQueryString(ph.beginPage-1)}'/>"><img src="resources/img/prev.png" /></a>
 			</c:if>
 			<c:forEach var="i" begin="${ph.beginPage }" end="${ph.endPage }">
-				<a href="<c:url value='/inventoryGoods${ph.sc.getQueryString(i)}'/>">${i}</a>
+				<a href="<c:url value='/inventoryGoodsLend${ph.sc.getQueryString(i)}'/>">${i}</a>
 			</c:forEach>
 			<c:if test="${ph.showNext}">
-				<a href="<c:url value='/inventoryGoods${ph.sc.getQueryString(ph.endPage+1)}'/>"><img src="resources/img/next.png" /></a>
+				<a href="<c:url value='/inventoryGoodsLend${ph.sc.getQueryString(ph.endPage+1)}'/>"><img src="resources/img/next.png" /></a>
 			</c:if>
 		</div>
 		<div class="search-container">
-            <form action="<c:url value="/inventoryGoods"/>" class="search-form" method="get">
+            <form action="<c:url value="/inventoryGoodsLend"/>" class="search-form" method="get">
                 <select class="search-option" name="option">
                     <option value="R" ${ph.sc.option=='R' || ph.sc.option=='' ? "selected" : ""}>분류명</option>
                 </select>

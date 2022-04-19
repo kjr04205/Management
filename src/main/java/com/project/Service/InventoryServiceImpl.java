@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.DAO.InventoryDAO;
 import com.project.DTO.Employee;
+import com.project.DTO.Goods;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
@@ -23,6 +24,12 @@ public class InventoryServiceImpl implements InventoryService {
 	public List<Inventory> getList() throws Exception{
 		System.out.println("service");
 		return inventoryDao.selectInventory();
+	}
+	
+	@Override
+	public List<Goods> getGoodsList() throws Exception{
+		System.out.println("service");
+		return inventoryDao.selectGoods();
 	}
 	
 	@Override
@@ -58,6 +65,11 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public int insertInventory(Inventory inventory) throws Exception{
 		return inventoryDao.insertInventory(inventory);
+	}
+	
+	@Override
+	public int insertInventoryGoods(Goods goods) throws Exception{
+		return inventoryDao.insertInventoryGoods(goods);
 	}
 
 	@Override

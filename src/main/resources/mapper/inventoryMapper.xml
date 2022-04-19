@@ -85,9 +85,24 @@
     	<include refid="InventorySort"/>	
     </select>
     
+    <select id="selectGoods" resultType="Goods">
+		SELECT g.gno,
+		i.name as gname,
+		e.name as gmember,
+		g.ggroup,
+		g.gcount,
+		g.gdate FROM goods g LEFT JOIN inventory i ON g.gname = i.ino
+		LEFT JOIN employee e ON g.gmember = e.eno;
+    </select>
+    
     <insert id="insertInventory" parameterType="Inventory">
     	insert into inventory (name, code, count, lno, igno)
     	values (#{name}, #{code}, #{count}, #{lno}, #{igno});
+    </insert>
+    
+    <insert id="insertGoods" parameterType="Goods">
+    	insert into goods (gname, gmember, ggroup, gcount) 
+    	values (#{gname}, #{gmember}, #{ggroup}, #{gcount});
     </insert>
 	
 	<select id="selectLocationAll" resultType="Location">

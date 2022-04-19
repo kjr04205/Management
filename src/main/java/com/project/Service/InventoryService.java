@@ -2,6 +2,7 @@ package com.project.Service;
 
 import java.util.List;
 
+import com.project.DTO.Goods;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
@@ -39,4 +40,8 @@ public interface InventoryService {
 	List<IGroup> getGroupList(SearchCondition sc) throws Exception;
 		
 	int getGroupCount(SearchCondition sc) throws Exception;
+	
+	public int insertInventoryGoods(Goods goods) throws Exception;
+	
+	public List<Goods> getGoodsList() throws Exception;
 }

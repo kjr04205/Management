@@ -12,5 +12,6 @@
         <typeAlias alias="Location" type="com.project.DTO.Location"/>
         <typeAlias alias="IGroup" type="com.project.DTO.IGroup"/>
         <typeAlias alias="Inventory" type="com.project.DTO.Inventory"/>
+        <typeAlias alias="Goods" type="com.project.DTO.Goods"/>
     </typeAliases>
 </configuration>

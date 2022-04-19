@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.project.DTO.Employee;
+import com.project.DTO.Goods;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
@@ -53,6 +54,10 @@ public class InventoryDAO {
 		return session.insert(namespace + "insertInventory", inventory); 
 	}
 	
+	public int insertInventoryGoods(Goods goods) throws Exception{
+		return session.insert(namespace + "insertGoods", goods); 
+	}
+	
 	public Inventory selectInventory(int ino) throws Exception{
 		return session.selectOne(namespace + "selectInventoryOne", ino);
 	}
@@ -79,5 +84,9 @@ public class InventoryDAO {
 	
 	public int groupCount(SearchCondition sc) throws Exception{
 		return session.selectOne(namespace + "groupCount", sc);
+	}
+	
+	public List<Goods> selectGoods() throws Exception{
+		return session.selectList(namespace + "selectGoods");
 	}
 }
