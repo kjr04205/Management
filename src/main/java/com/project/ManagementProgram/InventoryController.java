@@ -3,8 +3,16 @@ package com.project.ManagementProgram;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,6 +36,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Controller
 public class InventoryController {
+	
+	@Autowired
+	DataSource ds;
 	
 	@Autowired
 	InventoryService inventoryservice;
@@ -219,14 +230,30 @@ public class InventoryController {
 	}
 	
 	@PostMapping("/inventoryGoodsLend/save")
+//	@Transactional(rollbackFor = {RuntimeException.class, Exception.class})
 	public String inventoryGoodsLendSave(Goods goods, RedirectAttributes rattr){
+		PlatformTransactionManager tm = new DataSourceTransactionManager(ds);
+		DefaultTransactionDefinition txd = new DefaultTransactionDefinition();
+		txd.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		TransactionStatus status = tm.getTransaction(txd);
+		
 		try {
+			int result = inventoryservice.updateInventoryCount(Integer.parseInt(goods.getGname()), goods.getGcount() * (-1));
+			if(result<1) // 수량이 0보다 적어지거나 오류가 있을 경우
+				throw new Exception("CNT_ERR");
+			
 			inventoryservice.insertInventoryGoods(goods);
 			rattr.addFlashAttribute("msg", "ADD_OK");
-			
+			tm.commit(status);
 		}catch(Exception e) {
 			e.printStackTrace();
-			rattr.addFlashAttribute("msg", "ADD_ERR");
+			if(e.getMessage().equals("CNT_ERR")) {
+				rattr.addFlashAttribute("msg", "ADD_CNT_ERR");
+			}else {
+				rattr.addFlashAttribute("msg", "ADD_ERR");
+			}
+			
+			tm.rollback(status);
 		}
 		return "redirect:/inventoryGoodsLend";
 	}
@@ -239,16 +266,5 @@ public class InventoryController {
 		m.addAttribute("employee", empList);
 		return empList;
 		
-		/*List<Employee> empList = new ArrayList<Employee>();
-		Employee e = new Employee();
-		e.setName("일번");
-		e.setTeam("1");
-		empList.add(e);
-		Employee e2 = new Employee();
-		e2.setName("이번");
-		e2.setTeam("2");
-		empList.add(e2);
-		System.out.println(empList);
-		return empList;*/
 	}
 }

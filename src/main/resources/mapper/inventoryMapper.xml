@@ -62,7 +62,7 @@
     
     <select id="selectInventoryPage" parameterType="SearchCondition" resultType="Inventory">
 		<include refid="selectInventoryBaseSql"></include>
-		WHERE TRUE
+		WHERE i.discard = 0
         <include refid="inventorySearchCondition"></include>
 <!--ORDER BY ino DESC  -->
 		<include refid="InventorySort"/>		
@@ -74,13 +74,14 @@
         SELECT count(*)
         FROM inventory i LEFT JOIN location l ON i.lno = l.lno
 		LEFT JOIN inventory_group g ON i.igno = g.igno
-        WHERE TRUE
+        WHERE i.discard = 0
         <include refid="inventorySearchCondition"></include>
         ;
     </select>
     
     <select id="selectInventory" resultType="Inventory">
     	<include refid="selectInventoryBaseSql"></include>
+    	WHERE i.discard = 0
     	<!-- ORDER BY ino DESC;-->
     	<include refid="InventorySort"/>	
     </select>
@@ -132,9 +133,15 @@
 		where ino=#{ino}
 	</update>
 	
+	<!-- 
 	<delete id="deleteInventory" parameterType="int">
 		delete from inventory where ino=#{ino} 
 	</delete>
+	 -->
+	 
+	 <update id="deleteInventory" parameterType="int">
+	 	update inventory set discard = 1 where ino = #{ino}
+	 </update>
 	
 	<select id="selectLocation" resultType="Location">
 		select * from Location order by name;
@@ -159,4 +166,8 @@
 			AND name like concat('%',#{keyword},'%')
 		</if>;
 	</select>
+	
+	<update id="updateInventoryCount" parameterType="map">
+		update inventory set count = count + #{amount} where ino = #{ino} and count + #{amount} > -1
+	</update>
 </mapper>

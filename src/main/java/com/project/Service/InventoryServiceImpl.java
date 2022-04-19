@@ -1,6 +1,7 @@
 package com.project.Service;
 
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -105,5 +106,10 @@ public class InventoryServiceImpl implements InventoryService {
 	@Override
 	public int getGroupCount(SearchCondition sc) throws Exception {
 		return inventoryDao.groupCount(sc);
+	}
+
+	@Override
+	public int updateInventoryCount(int ino, int amount) throws Exception {
+		return inventoryDao.updateInventoryCount(ino, amount);
 	}
 }

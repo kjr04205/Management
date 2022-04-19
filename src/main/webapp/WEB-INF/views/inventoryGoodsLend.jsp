@@ -13,6 +13,7 @@
 	let msg = "${msg}";
 	if(msg=="ADD_OK") alert("등록되었습니다.");
 	if(msg=="ADD_ERR") alert("등록에 실패하였습니다. 관리자에게 문의해주세요.");
+	if(msg=="ADD_CNT_ERR") alert("등록에 실패하였습니다. 수량을 확인 해 주세요.");
 	
 	$(document).ready(function(){
 		var employee={};
@@ -37,7 +38,7 @@
 		
 		$("#employeeBox").on('change',function(){
 			var idx = $("#employeeBox option").index($("#employeeBox option:selected"));
-			$('input[name=ggroup]').attr('value',employee[idx].team);
+			$('input[name=ggroup]').attr('value',employee[idx-1].team);
 		});
 	});
 	
@@ -46,6 +47,17 @@
 			$("#employeeBox").append('<option value="'+employee[i].eno+'">'+employee[i].name+'</option>');
 		}
 		$('input[name=group]').attr('value',employee[0].team);
+	}
+	
+	function formCheck(frm){
+		if(frm.gcount.value.length==0){
+			alert("수량을 입력해주세요.");
+			return false;
+		}
+		if(frm.gcount.value <= 0){
+			alert("수량은 0보다 커야합니다.");
+			return false;
+		}
 	}
 </script>
 <style>

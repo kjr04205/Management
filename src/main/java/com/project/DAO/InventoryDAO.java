@@ -1,6 +1,8 @@
 package com.project.DAO;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,7 +69,8 @@ public class InventoryDAO {
 	}
 	
 	public int deleteInventory(int ino) throws Exception{
-		return session.delete(namespace + "deleteInventory", ino);
+//		return session.delete(namespace + "deleteInventory", ino);
+		return session.update(namespace + "deleteInventory", ino);
 	}
 	
 	public List<Location> selectLocation(SearchCondition sc) throws Exception{
@@ -88,5 +91,12 @@ public class InventoryDAO {
 	
 	public List<Goods> selectGoods() throws Exception{
 		return session.selectList(namespace + "selectGoods");
+	}
+	
+	public int updateInventoryCount(int ino, int amount) throws Exception{
+		Map map = new HashMap();
+		map.put("ino", ino);
+		map.put("amount",amount);
+		return session.update(namespace + "updateInventoryCount", map);
 	}
 }
