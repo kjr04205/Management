@@ -3,6 +3,7 @@ package com.project.ManagementProgram;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -256,6 +257,21 @@ public class InventoryController {
 			tm.rollback(status);
 		}
 		return "redirect:/inventoryGoodsLend";
+	}
+	
+	@RequestMapping("/inventoryGoodsLend/remove")
+	public String goodsRemove(Goods goods, RedirectAttributes rattr){
+		try {
+			int res = inventoryservice.removeGoods(goods.getGno());
+			int gcount = inventoryservice.updateInventoryGoodsCount(goods);
+			
+			rattr.addFlashAttribute("msg", "DEL_OK");
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "DEL_ERR");
+		}
+		return "redirect:/inventoryGoodsLend";
+		
 	}
 
 	@ResponseBody

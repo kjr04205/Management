@@ -46,4 +46,10 @@ public interface InventoryService {
 	public List<Goods> getGoodsList() throws Exception;
 	
 	int updateInventoryCount(int ino, int amount) throws Exception;
+	
+	public int removeGoods(int gno) throws Exception;
+	
+	public int updateInventoryGoodsCount(Goods goods) throws Exception;
+	
+
 }

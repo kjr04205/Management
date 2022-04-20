@@ -99,4 +99,12 @@ public class InventoryDAO {
 		map.put("amount",amount);
 		return session.update(namespace + "updateInventoryCount", map);
 	}
+	
+	public int removeGoods(int gno) throws Exception{
+		return session.delete(namespace + "removeGoods", gno);
+	}
+	
+	public int updateInventoryGoodsCount(Goods goods) throws Exception{
+		return session.update(namespace + "goodsCountupdate", goods);
+	}
 }

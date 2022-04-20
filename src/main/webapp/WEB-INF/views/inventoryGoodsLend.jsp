@@ -171,6 +171,7 @@
 					<th>대여자 부서</th>
 					<th>대여 수량</th>
 					<th>날짜</th>
+					<th width="5%">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -183,6 +184,7 @@
 					<td>${goods.ggroup}</td>
 					<td>${goods.gcount}</td>
 					<td>${goods.gdate}</td>
+					<td><a href="<c:url value='/inventoryGoodsLend/remove?gno=${goods.gno}'/>"><img style="max-width:25px; max-height:25px; width:100%;" src="resources/img/delete.png" /></a></td>
 				</tr>
 				<c:set var="no" value="${no-1}"/>
 			</c:forEach>

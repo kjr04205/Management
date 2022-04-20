@@ -112,4 +112,14 @@ public class InventoryServiceImpl implements InventoryService {
 	public int updateInventoryCount(int ino, int amount) throws Exception {
 		return inventoryDao.updateInventoryCount(ino, amount);
 	}
+	
+	@Override
+	public int removeGoods(int gno) throws Exception{
+		return inventoryDao.removeGoods(gno);
+	}
+	
+	@Override
+	public int updateInventoryGoodsCount(Goods goods) throws Exception{
+		return inventoryDao.updateInventoryGoodsCount(goods);
+	}
 }

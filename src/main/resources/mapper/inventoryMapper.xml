@@ -170,4 +170,13 @@
 	<update id="updateInventoryCount" parameterType="map">
 		update inventory set count = count + #{amount} where ino = #{ino} and count + #{amount} > -1
 	</update>
+	
+	<update id="goodsCountupdate" parameterType="Goods">
+		<!--  update inventory set count = count + #{gcount} where ino = #{gname}; -->
+		update inventory i SET i.count = i.count + 5 where exists (select gname from goods g where i.ino = g.gname);
+	</update>
+	
+	<delete id="removeGoods" parameterType="int">
+		DELETE FROM goods where gno = #{gno};
+	</delete>
 </mapper>
