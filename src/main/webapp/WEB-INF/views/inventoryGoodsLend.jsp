@@ -184,7 +184,7 @@
 					<td>${goods.ggroup}</td>
 					<td>${goods.gcount}</td>
 					<td>${goods.gdate}</td>
-					<td><a href="<c:url value='/inventoryGoodsLend/remove?gno=${goods.gno}'/>"><img style="max-width:25px; max-height:25px; width:100%;" src="resources/img/delete.png" /></a></td>
+					<td><a href="<c:url value='/inventoryGoodsLend/remove?gno=${goods.gno}&gcount=${goods.gcount}'/>"><img style="max-width:25px; max-height:25px; width:100%;" src="resources/img/delete.png" /></a></td>
 				</tr>
 				<c:set var="no" value="${no-1}"/>
 			</c:forEach>

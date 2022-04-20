@@ -260,10 +260,19 @@ public class InventoryController {
 	}
 	
 	@RequestMapping("/inventoryGoodsLend/remove")
+	@Transactional(rollbackFor = {RuntimeException.class, Exception.class})
 	public String goodsRemove(Goods goods, RedirectAttributes rattr){
+
 		try {
-			int res = inventoryservice.removeGoods(goods.getGno());
 			int gcount = inventoryservice.updateInventoryGoodsCount(goods);
+			
+			if(gcount < 1)
+				throw new Exception("Count update Error");
+			
+			int res = inventoryservice.removeGoods(goods.getGno());
+			
+			if(res < 1)
+				throw new Exception("Remove Error");
 			
 			rattr.addFlashAttribute("msg", "DEL_OK");
 		}catch(Exception e) {
