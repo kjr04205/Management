@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
 import com.project.DTO.PageHandler2;
+import com.project.DTO.ReceivingGoods;
 import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 import com.project.Service.EmployeeService;
@@ -211,21 +214,83 @@ public class InventoryController {
 		
 	}
 	
-	@RequestMapping("/inventoryGoods")
-	public String inventoryGoods(Model m) throws Exception {
+	@GetMapping("/inventoryGoods")
+	public String inventoryGoods(SearchCondition sc, Model m) throws Exception {
 		
-		//List<IGroup> IGroup = inventoryservice.getGroupList();
+		try {
+			int totalCnt = inventoryservice.getReceivingGoodsCount(sc);
+			PageHandler2 ph = new PageHandler2(totalCnt, sc);
+			List<ReceivingGoods> goodsList = inventoryservice.getReceivingGoods(sc);
+			m.addAttribute("goodsList", goodsList);
+			m.addAttribute("ph", ph);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "inventoryGoods";
 	}
 	
+	@PostMapping("/inventoryGoods/save")
+	@Transactional(rollbackFor = {RuntimeException.class, Exception.class, NullPointerException.class})
+	public String receivingGoodsSave(ReceivingGoods goods, RedirectAttributes rattr){
+		try {
+			int result = inventoryservice.updateInventoryCount(Integer.parseInt(goods.getGname()), goods.getGcount());
+			if(result<1) // 수량이 0보다 적어지거나 오류가 있을 경우
+				throw new Exception("CNT_ERR");
+			
+			result = inventoryservice.insertReceivingGoods(goods);
+			if(result<1)
+				throw new Exception("Insert Error");
+			
+			rattr.addFlashAttribute("msg", "ADD_OK");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			if(e.getMessage().equals("CNT_ERR")) {
+				rattr.addFlashAttribute("msg", "ADD_CNT_ERR");
+			}else {
+				rattr.addFlashAttribute("msg", "ADD_ERR");
+			}
+			
+		}
+		return "redirect:/inventoryGoods";
+	}
+	
+	@RequestMapping("/inventoryGoods/remove")
+	@Transactional(rollbackFor = {RuntimeException.class, Exception.class, NullPointerException.class})
+	public String receivingGoodsRemove(ReceivingGoods goods, RedirectAttributes rattr){
+
+		try {
+			int gcount = inventoryservice.updateReceivingGoodsCount(goods);
+			
+			if(gcount < 1)
+				throw new Exception("Count update Error");
+			
+			int res = inventoryservice.removeReceivingGoods(goods.getRgno());
+			
+			if(res < 1)
+				throw new Exception("Remove Error");
+			
+			rattr.addFlashAttribute("msg", "DEL_OK");
+		}catch(Exception e) {
+			e.printStackTrace();
+			rattr.addFlashAttribute("msg", "DEL_ERR");
+		}
+		return "redirect:/inventoryGoods";
+		
+	}
+	
 	@RequestMapping("/inventoryGoodsLend")
-	public String inventoryGoodsLend(Model m) throws Exception {
+	public String inventoryGoodsLend(SearchCondition sc, Model m) throws Exception {
 		List<Inventory> invList = inventoryservice.getList();
 		m.addAttribute("inventory", invList);
 		
-		List<Goods> goodsList = inventoryservice.getGoodsList();
+		int totalCnt = inventoryservice.getGoodsListCount(sc);
+		PageHandler2 ph = new PageHandler2(totalCnt, sc);
+		List<Goods> goodsList = inventoryservice.getGoodsList(sc);
+		
 		m.addAttribute("goodsList", goodsList);
+		m.addAttribute("ph", ph);
 		
 		return "inventoryGoodsLend";
 	}
@@ -290,6 +355,21 @@ public class InventoryController {
 		
 		m.addAttribute("employee", empList);
 		return empList;
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("/inventoryGoods/settingInsertData")
+	public JSONObject settingInsertData(Model m) throws Exception{
+		List<Inventory> invList = inventoryservice.getList();
+		List<Employee> empList = employeeservice.getEmployee();
+		
+		JSONObject obj = new JSONObject();
+		obj.put("inventory", invList);
+		obj.put("employee", empList);
+		
+		
+		return obj;
 		
 	}
 }

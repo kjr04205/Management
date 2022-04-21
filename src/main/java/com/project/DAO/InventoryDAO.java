@@ -13,6 +13,7 @@ import com.project.DTO.Goods;
 import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
+import com.project.DTO.ReceivingGoods;
 import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 
@@ -89,8 +90,12 @@ public class InventoryDAO {
 		return session.selectOne(namespace + "groupCount", sc);
 	}
 	
-	public List<Goods> selectGoods() throws Exception{
-		return session.selectList(namespace + "selectGoods");
+	public int selectGoodsCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "selectGoodsCount",sc);
+	}
+	
+	public List<Goods> selectGoods(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectGoods", sc);
 	}
 	
 	public int updateInventoryCount(int ino, int amount) throws Exception{
@@ -106,5 +111,25 @@ public class InventoryDAO {
 	
 	public int updateInventoryGoodsCount(Goods goods) throws Exception{
 		return session.update(namespace + "goodsCountupdate", goods);
+	}
+	
+	public List<ReceivingGoods> getReceivingGoods(SearchCondition sc) throws Exception{
+		return session.selectList(namespace + "selectReceivingGoods", sc);
+	}
+	
+	public int getReceivingGoodsCount(SearchCondition sc) throws Exception{
+		return session.selectOne(namespace + "selectReceivingGoodsCount" , sc);
+	}
+	
+	public int insertReceivingGoods(ReceivingGoods goods) throws Exception{
+		return session.insert(namespace + "insertReceivingGoods", goods);
+	}
+	
+	public int updateReceivingGoodsCount(ReceivingGoods goods) throws Exception{
+		return session.update(namespace + "updateReceivingGoods", goods);
+	}
+	
+	public int removeReceivingGoods(int rgno) throws Exception{
+		return session.delete(namespace + "deleteReceivingGoods", rgno);
 	}
 }

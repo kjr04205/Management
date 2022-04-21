@@ -13,15 +13,88 @@
 	let msg = "${msg}";
 	if(msg=="ADD_OK") alert("등록되었습니다.");
 	if(msg=="ADD_ERR") alert("등록에 실패하였습니다. 관리자에게 문의해주세요.");
+	if(msg=="ADD_CNT_ERR") alert("등록에 실패하였습니다. 수량을 확인 해 주세요.");
+	if(msg=="DEL_OK") alert("삭제되었습니다.");
+	if(msg=="DEL_ERR") alert("등록에 실패하였습니다. 관리자에게 문의해주세요.");
 	
 	$(document).ready(function(){
+		var employee={};
+		var inventory={};
+		
+		searchBoxSetting($("#search-type option:selected").val());
+		
+		$("#search-type").on('change',function(){
+			var option = $("#search-type option:selected").val();
+			searchBoxSetting(option);
+		})
+		
 		$('#insert').click(function(){
+			$.ajax({
+				type:"GET",
+				url:"/ManagementProgram/inventoryGoods/settingInsertData",
+				dataType:"json",
+				success:function(result){
+					inventory = result.inventory;
+					employee= result.employee;
+					setMember(employee);
+					setInventory(inventory);
+				},
+				error:function(err){
+					alert('에러');
+				}
+			});
+			
 			$('.register').css("display","block");
 		});	
+		
 		$('.form_close').click(function(){
 			$('.register').css("display","none");
 		});
+		
+		$("#employeeBox").on('change',function(){
+			var idx = $("#employeeBox option").index($("#employeeBox option:selected"));
+			$('input[name=ggroup]').attr('value',employee[idx-1].team);
+		});
 	});
+	
+	
+	function setMember(employee){
+		for(var i=0;i<employee.length;i++){
+			$("#employeeBox").append('<option value="'+employee[i].eno+'">'+employee[i].name+'</option>');
+		}
+		$('input[name=ggroup]').attr('value',employee[0].team);
+	}
+	
+	function setInventory(inventory){
+		for(var i=0;i<inventory.length;i++){
+			$("#inventoryBox").append('<option value="'+inventory[i].ino+'">'+inventory[i].name+'</option>');
+		}
+	}
+	
+	function formCheck(frm){
+		if(frm.gcount.value.length==0){
+			alert("수량을 입력해주세요.");
+			return false;
+		}
+		if(frm.gcount.value <= 0){
+			alert("수량은 0보다 커야합니다.");
+			return false;
+		}
+	}
+	
+	function searchBoxSetting(option){
+		if(option=='Date'){
+			$("#search-date").attr('disabled',false);
+			$("#search-date").attr("style","display:block");
+			$("#search-input").attr('disabled',true);
+			$("#search-input").attr('style','display:none');
+		}else{
+			$("#search-date").attr('disabled',true);
+			$("#search-date").attr("style","display:none");
+			$("#search-input").attr('disabled',false);
+			$("#search-input").attr('style','display:block');
+		}
+	}
 </script>
 <style>
 	#position_top{
@@ -102,25 +175,19 @@
 	    	<h2>입고 자재 등록</h2><br><br>
 			<span class="form_close">X</span>
 	    	<label for="id">입고 품목</label>
-	   		<select name="goods">
-		    	<c:forEach var="inventory" items="${inventory}">
-		    		<option value=${inventory.ino}>${inventory.name}</option>
-		    	</c:forEach>
-	    	</select>
+	    	<select name="gname" id="inventoryBox">
+	   			<option value="" selected disabled hidden>입고 품목을 선택하세요.</option>
+	   		</select>
+	   		
 	   		<label for="id">반납자</label>
-	   		<select name="member">
-		    	<c:forEach var="employee" items="${employee}">
-		    		<option value=${employee.eno}>${employee.name}</option>
-		    	</c:forEach>
-	    	</select>
+	    	<select name="gmember" id="employeeBox">
+	   			<option value="" selected disabled hidden>반납자를 선택하세요.</option>
+	   		</select>
+	   		
 	   		<label for="id">반납자 부서</label>
-	   		<select name="team">
-		    	<c:forEach var="team" items="${team}">
-		    		<option value=${team.tno}>${team.name}</option>
-		    	</c:forEach>
-	    	</select>
+	   		<input class="input-field" type="text" name="ggroup" readonly>
 	   		<label for="id">반납 수량</label>
-	   		<input class="input-field" type="text" name="count">
+	   		<input class="input-field" type="number" name="gcount">
 	        <button>자재 입고등록</button>
 	    </form>
   	</div>
@@ -135,6 +202,7 @@
 					<th>반납자 부서</th>
 					<th>반납 수량</th>
 					<th>날짜</th>
+					<th width="5%">&nbsp;</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -142,11 +210,12 @@
 			<c:forEach var="goods" items="${goodsList}">
 				<tr>
 					<td class="no">${no}</td>
-					<td>${goods.name}</td>
-					<td>${goods.member}</td>
-					<td>${goods.team}</td>
-					<td>${goods.count}</td>
-					<td>${goods.date}</td>
+					<td>${goods.gname}</td>
+					<td>${goods.gmember}</td>
+					<td>${goods.ggroup}</td>
+					<td>${goods.gcount}</td>
+					<td>${goods.gdate}</td>
+					<td><a href="<c:url value='/inventoryGoods/remove?rgno=${goods.rgno}&gcount=${goods.gcount}'/>"><img style="max-width:25px; max-height:25px; width:100%;" src="resources/img/delete.png" /></a></td>
 				</tr>
 				<c:set var="no" value="${no-1}"/>
 			</c:forEach>
@@ -165,10 +234,15 @@
 		</div>
 		<div class="search-container">
             <form action="<c:url value="/inventoryGoods"/>" class="search-form" method="get">
-                <select class="search-option" name="option">
-                    <option value="R" ${ph.sc.option=='R' || ph.sc.option=='' ? "selected" : ""}>분류명</option>
+                <select id="search-type" class="search-option" name="option">
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>전체</option>
+                    <option value="IName" ${ph.sc.option=='IName' ? "selected" : ""}>품목명</option>
+                    <option value="EName" ${ph.sc.option=='EName' ? "selected" : ""}>반납자</option>
+                    <option value="EGroup" ${ph.sc.option=='EGroup' ? "selected" : ""}>부서</option>
+                    <option value="Date" ${ph.sc.option=='Date' ? "selected" : ""}>날짜</option>
                 </select>
-                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="text" id="search-input" name="keyword" class="search-input" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="date" disabled style="display:none" id="search-date" name="keyword" class="search-input" value="${ph.sc.keyword}" />
                 <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">
             </form>
         </div>

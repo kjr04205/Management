@@ -13,6 +13,7 @@ import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
 import com.project.DTO.Position;
+import com.project.DTO.ReceivingGoods;
 import com.project.DTO.SearchCondition;
 import com.project.DTO.Team;
 
@@ -23,14 +24,17 @@ public class InventoryServiceImpl implements InventoryService {
 	
 	@Override
 	public List<Inventory> getList() throws Exception{
-		System.out.println("service");
 		return inventoryDao.selectInventory();
+	}
+
+	@Override
+	public int getGoodsListCount(SearchCondition sc) throws Exception {
+		return inventoryDao.selectGoodsCount(sc);
 	}
 	
 	@Override
-	public List<Goods> getGoodsList() throws Exception{
-		System.out.println("service");
-		return inventoryDao.selectGoods();
+	public List<Goods> getGoodsList(SearchCondition sc) throws Exception{
+		return inventoryDao.selectGoods(sc);
 	}
 	
 	@Override
@@ -122,4 +126,30 @@ public class InventoryServiceImpl implements InventoryService {
 	public int updateInventoryGoodsCount(Goods goods) throws Exception{
 		return inventoryDao.updateInventoryGoodsCount(goods);
 	}
+
+	@Override
+	public List<ReceivingGoods> getReceivingGoods(SearchCondition sc) throws Exception {
+		return inventoryDao.getReceivingGoods(sc);
+	}
+
+	@Override
+	public int getReceivingGoodsCount(SearchCondition sc) throws Exception {
+		return inventoryDao.getReceivingGoodsCount(sc);
+	}
+
+	@Override
+	public int insertReceivingGoods(ReceivingGoods goods) throws Exception {
+		return inventoryDao.insertReceivingGoods(goods);
+	}
+
+	@Override
+	public int updateReceivingGoodsCount(ReceivingGoods goods) throws Exception {
+		return inventoryDao.updateReceivingGoodsCount(goods);
+	}
+
+	@Override
+	public int removeReceivingGoods(int rgno) throws Exception {
+		return inventoryDao.removeReceivingGoods(rgno);
+	}
+
 }

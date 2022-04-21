@@ -86,6 +86,14 @@
     	<include refid="InventorySort"/>	
     </select>
     
+    <select id="selectGoodsCount" parameterType="int" resultType="int">
+    	SELECT count(*) 
+    	FROM goods g LEFT JOIN inventory i ON g.gname = i.ino
+		LEFT JOIN employee e ON g.gmember = e.eno
+		WHERE TRUE
+		<include refid="goodsSearch"></include>
+    </select>
+    
     <select id="selectGoods" resultType="Goods">
 		SELECT g.gno,
 		i.name as gname,
@@ -93,8 +101,62 @@
 		g.ggroup,
 		g.gcount,
 		g.gdate FROM goods g LEFT JOIN inventory i ON g.gname = i.ino
-		LEFT JOIN employee e ON g.gmember = e.eno;
+		LEFT JOIN employee e ON g.gmember = e.eno
+		WHERE TRUE
+		<include refid="goodsSearch"></include>
+		<include refid="goodsSort"></include>
+		LIMIT #{offset}, #{pageSize}
+		
     </select>
+    <sql id="goodsSearch">
+    	<choose>
+			<when test='option=="A"'>
+				AND (i.name like concat('%',#{keyword},'%') 
+				OR e.name like concat('%',#{keyword},'%') 
+				OR g.ggroup like concat('%',#{keyword},'%') )
+				OR date_format(g.gdate,'%Y-%m-%d') = #{keyword}
+			</when>
+			<when test='option=="IName"'>
+				AND i.name like concat('%',#{keyword},'%')
+			</when>
+			<when test='option=="EName"'>
+				AND e.name like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="EGroup"'>
+				AND g.ggroup like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="Date"'>
+				AND date_format(g.gdate,'%Y-%m-%d') = #{keyword}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+    </sql>
+    <sql id="goodsSort">
+    	<choose>
+			<when test='sort=="IName"'>
+				ORDER BY i.name
+			</when>
+			<when test='sort=="EName"'>
+				ORDER BY e.name
+			</when>
+			<when test='sort=="EGroup"'>
+				ORDER BY g.ggroup
+			</when>
+			<when test='sort=="Date"'>
+				ORDER BY g.gdate
+			</when>
+			<when test='sort=="Count"'>
+				ORDER BY g.gcount
+			</when>
+			<otherwise>
+				ORDER BY gno
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='sortType=="ASC"'> ASC</when>
+			<otherwise> DESC</otherwise>
+		</choose>
+    </sql>
     
     <insert id="insertInventory" parameterType="Inventory">
     	insert into inventory (name, code, count, lno, igno)
@@ -177,5 +239,89 @@
 	
 	<delete id="removeGoods" parameterType="int">
 		DELETE FROM goods where gno = #{gno};
+	</delete>
+	
+	<select id="selectReceivingGoodsCount" parameterType="SearchCondition" resultType="int">
+		SELECT COUNT(*)
+		FROM receiving_goods rg 
+		LEFT JOIN inventory i ON rg.gname = i.ino
+		LEFT JOIN employee e ON rg.gmember = e.eno
+		WHERE TRUE
+		<include refid="receivingGoodsSearch"></include>
+	</select>
+	
+	<select id="selectReceivingGoods" parameterType="SearchCondition" resultType="ReceivingGoods">
+		SELECT rgno, 
+		i.name as gname, 
+		e.name as gmember, 
+		ggroup, gcount, gdate
+		FROM receiving_goods rg 
+		LEFT JOIN inventory i ON rg.gname = i.ino
+		LEFT JOIN employee e on rg.gmember = e.eno
+		WHERE TRUE
+		<include refid="receivingGoodsSearch"></include>
+		<include refid="receivingGoodsSort"></include>
+		LIMIT #{offset}, #{pageSize}
+	</select>
+	<sql id="receivingGoodsSearch">
+		<choose>
+			<when test='option=="A"'>
+				AND (i.name like concat('%',#{keyword},'%') 
+				OR e.name like concat('%',#{keyword},'%') 
+				OR rg.ggroup like concat('%',#{keyword},'%') )
+				OR date_format(rg.gdate,'%Y-%m-%d') = #{keyword}
+			</when>
+			<when test='option=="IName"'>
+				AND i.name like concat('%',#{keyword},'%')
+			</when>
+			<when test='option=="EName"'>
+				AND e.name like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="EGroup"'>
+				AND rg.ggroup like concat('%',#{keyword},'%') 
+			</when>
+			<when test='option=="Date"'>
+				AND date_format(rg.gdate,'%Y-%m-%d') = #{keyword}
+			</when>
+			<otherwise></otherwise>
+		</choose>
+	</sql>
+	<sql id="receivingGoodsSort">
+		<choose>
+			<when test='sort=="IName"'>
+				ORDER BY i.name
+			</when>
+			<when test='sort=="EName"'>
+				ORDER BY e.name
+			</when>
+			<when test='sort=="EGroup"'>
+				ORDER BY rg.ggroup
+			</when>
+			<when test='sort=="Date"'>
+				ORDER BY rg.gdate
+			</when>
+			<when test='sort=="Count"'>
+				ORDER BY rg.gcount
+			</when>
+			<otherwise>
+				ORDER BY rgno
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='sortType=="ASC"'> ASC</when>
+			<otherwise> DESC</otherwise>
+		</choose>
+	</sql>
+	
+	<insert id="insertReceivingGoods" parameterType="ReceivingGoods">
+		INSERT INTO receiving_goods(gname, gmember, ggroup, gcount) VALUES(#{gname}, #{gmember}, #{ggroup}, #{gcount});
+	</insert>
+	
+	<update id="updateReceivingGoods" parameterType="ReceivingGoods">
+		UPDATE inventory SET count = count - #{gcount} WHERE ino IN (SELECT gname FROM receiving_goods WHERE rgno=#{rgno})
+	</update>
+	
+	<delete id="deleteReceivingGoods" parameterType="int">
+		DELETE FROM receiving_goods WHERE rgno=#{rgno}
 	</delete>
 </mapper>

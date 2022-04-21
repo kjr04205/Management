@@ -7,6 +7,7 @@ import com.project.DTO.IGroup;
 import com.project.DTO.Inventory;
 import com.project.DTO.Location;
 import com.project.DTO.Position;
+import com.project.DTO.ReceivingGoods;
 import com.project.DTO.SearchCondition;
 
 public interface InventoryService {
@@ -43,7 +44,9 @@ public interface InventoryService {
 	
 	public int insertInventoryGoods(Goods goods) throws Exception;
 	
-	public List<Goods> getGoodsList() throws Exception;
+	public List<Goods> getGoodsList(SearchCondition sc) throws Exception;
+	
+	public int getGoodsListCount(SearchCondition sc) throws Exception;
 	
 	int updateInventoryCount(int ino, int amount) throws Exception;
 	
@@ -51,5 +54,14 @@ public interface InventoryService {
 	
 	public int updateInventoryGoodsCount(Goods goods) throws Exception;
 	
+	public List<ReceivingGoods> getReceivingGoods(SearchCondition sc) throws Exception;
+	
+	public int getReceivingGoodsCount(SearchCondition sc) throws Exception;
+	
+	public int insertReceivingGoods(ReceivingGoods goods) throws Exception;
+	
+	public int updateReceivingGoodsCount(ReceivingGoods goods) throws Exception;
+	
+	public int removeReceivingGoods(int rgno) throws Exception;
 
 }

@@ -17,6 +17,14 @@
 	
 	$(document).ready(function(){
 		var employee={};
+		
+		searchBoxSetting($("#search-type option:selected").val());
+		
+		$("#search-type").on('change',function(){
+			var option = $("#search-type option:selected").val();
+			searchBoxSetting(option);
+		})
+		
 		$('#insert').click(function(){
 			$.ajax({
 				type:"GET",
@@ -59,6 +67,21 @@
 			return false;
 		}
 	}
+	
+	function searchBoxSetting(option){
+		if(option=='Date'){
+			$("#search-date").attr('disabled',false);
+			$("#search-date").attr("style","display:block");
+			$("#search-input").attr('disabled',true);
+			$("#search-input").attr('style','display:none');
+		}else{
+			$("#search-date").attr('disabled',true);
+			$("#search-date").attr("style","display:none");
+			$("#search-input").attr('disabled',false);
+			$("#search-input").attr('style','display:block');
+		}
+	}
+	
 </script>
 <style>
 	#position_top{
@@ -178,7 +201,7 @@
 			<c:set var ="no" value="${ph.getTotalCnt()-((ph.sc.getPage()-1) * ph.sc.getPageSize())}"/>
 			<c:forEach var="goods" items="${goodsList}">
 				<tr>
-					<td class="no">${goods.gno}</td>
+					<td class="no">${no}</td>
 					<td>${goods.gname}</td>
 					<td>${goods.gmember}</td>
 					<td>${goods.ggroup}</td>
@@ -203,10 +226,15 @@
 		</div>
 		<div class="search-container">
             <form action="<c:url value="/inventoryGoodsLend"/>" class="search-form" method="get">
-                <select class="search-option" name="option">
-                    <option value="R" ${ph.sc.option=='R' || ph.sc.option=='' ? "selected" : ""}>분류명</option>
+                <select id="search-type" class="search-option" name="option">
+                    <option value="A" ${ph.sc.option=='A' || ph.sc.option=='' ? "selected" : ""}>전체</option>
+                    <option value="IName" ${ph.sc.option=='IName' ? "selected" : ""}>품목명</option>
+                    <option value="EName" ${ph.sc.option=='EName' ? "selected" : ""}>대여자</option>
+                    <option value="EGroup" ${ph.sc.option=='EGroup' ? "selected" : ""}>부서</option>
+                    <option value="Date" ${ph.sc.option=='Date' ? "selected" : ""}>날짜</option>
                 </select>
-                <input type="text" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="text" id="search-input" name="keyword" class="search-input" type="text" value="${ph.sc.keyword}" placeholder="검색어를 입력해주세요">
+                <input type="date" disabled style="display:none" id="search-date" name="keyword" class="search-input" value="${ph.sc.keyword}"/>
                 <input type="image" class="search-button" src="${pageContext.request.contextPath}/resources/img/search.png" alt="검색">
             </form>
         </div>
