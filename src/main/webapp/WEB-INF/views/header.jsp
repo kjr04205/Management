@@ -76,9 +76,6 @@
 	    <li class="nav-item">
 	      <a class="nav-link" href="<c:url value="/register"/>">${registerMenu}</a>
 	    </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">문의접수</a>
-        </li>    
       </ul>
     </div>  
   </nav>

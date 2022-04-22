@@ -65,7 +65,7 @@
   <div class="sub_header">
 	<div>
 		<ul>
-			<li><a href="<c:url value="/inventory"/>" class="inventory_item01">자재 목록</a></li>
+			<li><a href="<c:url value="/inventory"/>" class="inventory_item01">자재 관리</a></li>
 			<li><a href="<c:url value="/inventoryRegister"/>" class="inventory_item02">자재 등록</a></li>
 			<li><a href="<c:url value="/inventoryLocation"/>" class="inventory_item03">위치별 관리 </a></li>
 			<li><a href="<c:url value="/inventoryGroup"/>" class="inventory_item04">분류별 관리</a></li>
