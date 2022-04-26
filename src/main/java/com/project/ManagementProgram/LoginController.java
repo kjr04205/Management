@@ -144,7 +144,13 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", user.getId());
 			
-			rattr.addAttribute("nickname", user.getName());
+			String nickname = user.getName();
+			
+			System.out.println("--------------------------");
+			System.out.println("nickname = " + nickname);
+			System.out.println("--------------------------");
+			
+			rattr.addFlashAttribute("nickname", nickname);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

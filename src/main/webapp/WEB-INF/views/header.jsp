@@ -4,6 +4,7 @@
 <c:set var="loginMenu" value="${sessionScope.id==null ? '로그인' : '로그아웃' }"/>
 <c:set var="loginLink" value="${sessionScope.id==null ? '/login' : '/logout' }"/>
 <c:set var="registerMenu" value="${sessionScope.id==null ? '회원가입' : ' ' }"/>
+<c:set var="nickname" value="${sessionScope.id==null ? ' ' : nickname }"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,12 +65,15 @@
   }
 </style>
 <script>
-let nickname = "${nickname}";
-if(nickname != " "){
-	alert(nickname);
-}else{
+	var nickname = "${nickname}";
 	
-}
+	console.log("nickname = " + nickname);
+	if(nickname == "")
+		console.log("닉네임없음")
+	else{
+		alert("환영합니다 , " + nickname + "님");
+	}
+		
 </script>
 <body>
   <nav class="navbar navbar-expand-md header navbar-dark bg-dark">
@@ -79,14 +83,14 @@ if(nickname != " "){
 	</button>
     <div class="collapse navbar-collapse header_text_wrap" id="collapsibleNavbar">
       <ul class="navbar-nav">
+      	<li class="nav-item">
+	      <a class="nav-link" id="nickname">${nickname}님 반갑습니다.</a>
+	    </li>
         <li class="nav-item">
           <a class="nav-link" href="<c:url value="${loginLink}"/>">${loginMenu}</a>
         </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="<c:url value="/register"/>">${registerMenu}</a>
-	    </li>
-	    <li class="nav-item">
-	    	<a class="nav-link nickname"></a>
 	    </li>
       </ul>
     </div>  
