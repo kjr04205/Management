@@ -4,6 +4,7 @@
 <c:set var="loginMenu" value="${sessionScope.id==null ? '로그인' : '로그아웃' }"/>
 <c:set var="loginLink" value="${sessionScope.id==null ? '/login' : '/logout' }"/>
 <c:set var="registerMenu" value="${sessionScope.id==null ? '회원가입' : ' ' }"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,6 +63,14 @@
 	}
   }
 </style>
+<script>
+let nickname = "${nickname}";
+if(nickname != " "){
+	alert(nickname);
+}else{
+	
+}
+</script>
 <body>
   <nav class="navbar navbar-expand-md header navbar-dark bg-dark">
  	<a class="navbar-brand logo" href="<c:url value="/"/>">MP(Management Program)</a>
@@ -75,6 +84,9 @@
         </li>
 	    <li class="nav-item">
 	      <a class="nav-link" href="<c:url value="/register"/>">${registerMenu}</a>
+	    </li>
+	    <li class="nav-item">
+	    	<a class="nav-link nickname"></a>
 	    </li>
       </ul>
     </div>  

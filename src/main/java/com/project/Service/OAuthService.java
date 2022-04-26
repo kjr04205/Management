@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.google.gson.JsonElement;
@@ -142,7 +143,6 @@ public class OAuthService {
 			map.put("birthDay", birthDay);
 			map.put("nickname", nickName);
 			
-
 			br.close();
 
 		} catch (IOException e) {

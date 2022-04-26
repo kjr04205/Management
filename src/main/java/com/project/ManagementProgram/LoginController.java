@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -143,7 +144,7 @@ public class LoginController {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", user.getId());
 			
-			
+			rattr.addAttribute("nickname", user.getName());
 			
 		} catch(Exception e) {
 			e.printStackTrace();
