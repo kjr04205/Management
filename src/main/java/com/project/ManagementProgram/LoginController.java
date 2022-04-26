@@ -65,9 +65,15 @@ public class LoginController {
 			}
 			return "redirect:/login?msg="+msg;
 		}
+		try {
+			user = userService.getUser(user);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("id", id);
+		session.setAttribute("userName", user.getName());
 		
 		toURL = toURL == null || toURL.equals("") ? "/" : toURL;
 		System.out.println("toURL:"+toURL);
@@ -150,7 +156,9 @@ public class LoginController {
 			System.out.println("nickname = " + nickname);
 			System.out.println("--------------------------");
 			
-			rattr.addFlashAttribute("nickname", nickname);
+			
+			rattr.addFlashAttribute("msg", "LOGIN_OK");
+			session.setAttribute("userName", nickname);
 			
 		} catch(Exception e) {
 			e.printStackTrace();

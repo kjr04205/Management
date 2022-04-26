@@ -6,7 +6,10 @@
 	let msg = "${msg}";
 	if(msg=="ADD_OK") alert("회원등록되었습니다.");
 	if(msg=="ADD_ERR") alert("회원등록에 실패하였습니다. 관리자에게 문의해주세요.");
-	
+	if(msg=="LOGIN_OK"){
+		let nickname = "${sessionScope.userName}";
+		alert(nickname+"님 환영합니다.");
+	}
 	
 </script>
 	<div class="container">
