@@ -89,6 +89,7 @@
         <input type="password" name="pwd" placeholder="PW를 입력해주세요."/>
         <input type="hidden" name="toURL" value="${param.toURL }"/>
         <button>login</button>
+        <button style="background:yellow; color:brown; margin:5px 0 0 0;"><a href="<c:url value='/kakao/login'/>" style="text-decoration: none;color:brown; ">카카오로 로그인</a></button>
         <p class="message">회원이 아니신가요? <a href="<c:url value='/register'/>">회원가입하러 가기</a></p>
       </form>
     </div>
