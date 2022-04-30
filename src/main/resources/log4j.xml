@@ -10,6 +10,16 @@
 		</layout>
 	</appender>
 	
+	<appender name="logFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="Threshold" value="DEBUG"/>
+		<param name="File" value="ManagementProgram/logs/spring.log"/>
+		<param name="Append" value="true"/>
+		<param name="DatePattern" value="'.'yyyy-MM-dd"/>
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%t> [%d{yyyy-MM-dd HH:mm:ss}] %5p [%C{1}] %m %n"/>
+		</layout>
+	</appender>
+	
 	<!-- Application Loggers -->
 	<logger name="com.project.ManagementProgram">
 		<level value="info" />
@@ -36,6 +46,7 @@
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		<appender-ref ref="logFile"/>
 	</root>
 	
 </log4j:configuration>

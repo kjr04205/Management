@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -28,6 +30,7 @@ import com.project.Service.UserService;
 @Controller
 @PropertySource("classpath:/config/otherAccess.properties")
 public class LoginController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	UserService userService;
 	
@@ -44,6 +47,7 @@ public class LoginController {
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
+		logger.info(String.format("%s LogOut Success",session.getValue("id")));
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -77,6 +81,8 @@ public class LoginController {
 		
 		toURL = toURL == null || toURL.equals("") ? "/" : toURL;
 		System.out.println("toURL:"+toURL);
+		
+		logger.info(String.format("%s Login Success",id));
 		return "redirect:"+toURL;
 	}
 	
@@ -159,6 +165,7 @@ public class LoginController {
 			
 			rattr.addFlashAttribute("msg", "LOGIN_OK");
 			session.setAttribute("userName", nickname);
+			logger.info(String.format("%s kakao Login Success",user.getId()));
 			
 		} catch(Exception e) {
 			e.printStackTrace();
