@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,7 +94,11 @@ public class LoginController {
 			
 			tmp = userService.getUser(user);
 			System.out.println(tmp);
-			if(tmp!=null && tmp.getPwd().equals(user.getPwd())) return true;
+			
+			//if(tmp!=null && tmp.getPwd().equals(user.getPwd())) return true;
+			
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			if(tmp!=null && encoder.matches(user.getPwd(), tmp.getPwd())) return true;
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -3,6 +3,7 @@ package com.project.ManagementProgram;
 import java.net.URLEncoder;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,12 @@ public class RegisterController {
 		String res = isValid(user);
 		if(res.equals("success")) {
 			try {
+				
+				//pwd 암호화
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				String securePwd = encoder.encode(user.getPwd());
+				user.setPwd(securePwd);
+				
 				// DB에 insert
 				int re = userService.insertUser(user);
 				if(re > 0) {
