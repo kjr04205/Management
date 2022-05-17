@@ -4,10 +4,12 @@
 			 xmlns="http://www.springframework.org/schema/beans"
 			 xmlns:context="http://www.springframework.org/schema/context"
 			 xmlns:tx="http://www.springframework.org/schema/tx"
+			 xmlns:aop="http://www.springframework.org/schema/aop"
 			 xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 		
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<context:property-placeholder location="classpath:config/*.properties"/>
@@ -35,5 +37,6 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 	<tx:annotation-driven/>
+	<aop:aspectj-autoproxy/>
 </beans>
 
